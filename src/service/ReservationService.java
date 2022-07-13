@@ -2,7 +2,6 @@ package service;
 
 import model.*;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ReservationService {
@@ -10,8 +9,7 @@ public class ReservationService {
       static Map<String, IRoom> roomMap = new HashMap<String, IRoom>();
       static Set<IRoom> roomSet = new HashSet<IRoom>();
       static Set<Reservation> reservationSet = new HashSet<>();
-      static  Queue<Reservation> reservationQueue = new LinkedList<>();
-      static ArrayList<Reservation> reservationArrayList = new ArrayList<>();
+      static  ArrayList<Reservation> reservationArrayList = new ArrayList<>();
     public static void addRoom(IRoom room){
        roomSet.add(room);
     }
@@ -29,7 +27,8 @@ public class ReservationService {
           Calendar calendar = Calendar.getInstance();
 
           Reservation r = new Reservation(customer, room, checkInDate, checkOutDate);
-          reservationQueue.add(r);
+
+          reservationSet.add(r);
 
        return r;
     }
@@ -50,12 +49,13 @@ public class ReservationService {
     }*/
 
     public static Collection<Reservation> getCustomerReservation(Customer customer){
-
-        for (Reservation r: reservationQueue){
-            if(!reservationQueue.contains(customer)){
-                reservationArrayList.add(r);
-            }
+        for (Reservation reservation : reservationSet){
+              if((reservation.toString().contains(customer.getEmail()) && reservation.toString().contains(customer.getFirstName())
+              && reservation.toString().contains(customer.getLastName()))){
+                  reservationArrayList.add(reservation);
+              }
         }
+
          return reservationArrayList;
     }
 
