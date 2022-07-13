@@ -10,6 +10,7 @@ public class ReservationService {
       static Set<IRoom> roomSet = new HashSet<IRoom>();
       static Set<Reservation> reservationSet = new HashSet<>();
       static  ArrayList<Reservation> reservationArrayList = new ArrayList<>();
+      static ArrayList<IRoom> roomArrayList = new ArrayList<>();
     public static void addRoom(IRoom room){
        roomSet.add(room);
     }
@@ -33,20 +34,22 @@ public class ReservationService {
        return r;
     }
 
-    /*public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate ){
+    public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate ){
        Calendar calendar = Calendar.getInstance();
-       String roomid = null;
 
-         if(roomMap.keySet().equals(roomid)) {
-             System.out.println(" It is Booked! ");
-             calendar.add(Calendar.DATE, 7);
+         for (IRoom rooms: roomMap.values()) {
+              if((rooms.getRoomNumber().equals(reservationSet.toString().contains(rooms.getRoomNumber()))
+              && reservationSet.contains(checkInDate) && reservationSet.contains(checkOutDate) )){
+                  System.out.println(" Sorry, it is Booked! Please Choose another date. ");
+                  calendar.add(Calendar.DATE, 7);
+              }
+              else {
+                  roomArrayList.add(rooms);
+              }
          }
-         Customer customer = new Customer(customer.getFirstName(),customer.getLastName(), customer.getEmail());
-         Room r = new Room(r.getRoomNumber(), r.getRoomPrice(), r.getRoomType());
-         reserveARoom(CustomerService.getCustomer(customer.getEmail()), getARoom(r.getRoomNumber()), checkInDate, checkOutDate);
 
-        return roomMap.values();
-    }*/
+        return roomArrayList;
+    }
 
     public static Collection<Reservation> getCustomerReservation(Customer customer){
         for (Reservation reservation : reservationSet){
