@@ -2,6 +2,8 @@ package service;
 
 import model.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ReservationService {
@@ -12,7 +14,10 @@ public class ReservationService {
       static  ArrayList<Reservation> reservationArrayList = new ArrayList<>();
       static ArrayList<IRoom> roomArrayList = new ArrayList<>();
     public static void addRoom(IRoom room){
-       roomSet.add(room);
+        if(!roomSet.toString().contains(room.getRoomNumber())){
+            roomSet.add(room);
+        }
+       // System.out.println(roomSet);
     }
 
     public static IRoom getARoom(String roomId){
@@ -23,13 +28,18 @@ public class ReservationService {
         }
           return roomMap.get(roomId);
     }
-
+    static Reservation r;
    public static Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate){
-          Calendar calendar = Calendar.getInstance();
+           Calendar calendar = Calendar.getInstance();
 
-          Reservation r = new Reservation(customer, room, checkInDate, checkOutDate);
-
-          reservationSet.add(r);
+       if(!(reservationSet.toString().contains(room.getRoomNumber()) && reservationSet.toString().contains(checkInDate.toString())
+          && reservationSet.toString().contains(checkOutDate.toString()))){
+               r = new Reservation(customer, room, checkInDate, checkOutDate);
+             reservationSet.add(r);
+       }
+          else {
+              System.out.println("Sorry the room is booked, please choose another room");
+          }
 
        return r;
     }
@@ -38,10 +48,11 @@ public class ReservationService {
        Calendar calendar = Calendar.getInstance();
 
          for (IRoom rooms: roomMap.values()) {
-              if((rooms.getRoomNumber().equals(reservationSet.toString().contains(rooms.getRoomNumber()))
-              && reservationSet.contains(checkInDate) && reservationSet.contains(checkOutDate) )){
+              if(reservationSet.toString().contains(checkInDate.toString())
+                 && reservationSet.toString().contains(checkOutDate.toString())
+                      && reservationSet.toString().contains(rooms.getRoomNumber())){
                   System.out.println(" Sorry, it is Booked! Please Choose another date. ");
-                  calendar.add(Calendar.DATE, 7);
+                  //calendar.add(Calendar.DATE, 7);
               }
               else {
                   roomArrayList.add(rooms);
