@@ -5,6 +5,7 @@ import model.Reservation;
 import model.Room;
 import model.RoomTypeEnumeration;
 
+import java.text.ParseException;
 import java.util.Date;
 
 public class Tester {
@@ -21,20 +22,23 @@ public class Tester {
 
 
         ReservationService.addRoom(new Room("104", 90.00, RoomTypeEnumeration.SINGLE));
+        ReservationService.addRoom(new Room("110", 90.00, RoomTypeEnumeration.SINGLE));
         ReservationService.addRoom(new Room("101", 100.00, RoomTypeEnumeration.DOUBLE));
         ReservationService.addRoom(new Room("102", 100.00, RoomTypeEnumeration.DOUBLE));
-        ReservationService.addRoom(new Room("103", 90.00, RoomTypeEnumeration.SINGLE));
-
-
-        System.out.println("this is the reservation: " + ReservationService.reserveARoom(
-                new Customer("d", "m", "d@email.com"),
-                ReservationService.getARoom("104"), new Date(22,2,5), new Date(22,2,6)));
+        ReservationService.addRoom(new Room("100", 90.00, RoomTypeEnumeration.SINGLE));
+        //ReservationService.addRoom(new Room("100", 90.00, RoomTypeEnumeration.SINGLE));
 
         System.out.println("this is the reservation: " + ReservationService.reserveARoom(
+                new Customer("aa", "dm", "dm@email.com"),
+                ReservationService.getARoom("104"), new Date("3/4/2022"), new Date("3/8/2022")));
+       System.out.println("this is the reservation: " + ReservationService.reserveARoom(
                 new Customer("a", "m", "am@email.com"),
-                ReservationService.getARoom("103"), new Date(22,2,3), new Date(22,2,4)));
+                ReservationService.getARoom("101"), new Date("3/9/2022"), new Date("3/9/2022")));
 
-        System.out.println(ReservationService.findRooms(new Date(22,2,3),new Date(22,2,6)));
+            System.out.println(ReservationService.findRooms(new Date("3/4/2022"),new Date("3/8/2022")));
+
+
+
         /*ReservationService.PrintAllReservation();
 
        System.out.println("this is the customer reservation: " +

@@ -3,8 +3,10 @@ package service;
 import model.*;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ReservationService {
 
@@ -14,10 +16,9 @@ public class ReservationService {
       static  ArrayList<Reservation> reservationArrayList = new ArrayList<>();
       static ArrayList<IRoom> roomArrayList = new ArrayList<>();
     public static void addRoom(IRoom room){
-        if(!roomSet.toString().contains(room.getRoomNumber())){
-            roomSet.add(room);
-        }
-       // System.out.println(roomSet);
+       room = new Room(room.getRoomNumber(),room.getRoomPrice(), room.getRoomType());
+       roomSet.add(room);
+
     }
 
     public static IRoom getARoom(String roomId){
@@ -26,13 +27,16 @@ public class ReservationService {
         ) {
             roomMap.put(room1.getRoomNumber(), room1);
         }
+        //System.out.println(roomMap);
           return roomMap.get(roomId);
     }
+
     static Reservation r;
    public static Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate){
-           Calendar calendar = Calendar.getInstance();
+          Calendar calendar = Calendar.getInstance();
 
-       if(!(reservationSet.toString().contains(room.getRoomNumber()) && reservationSet.toString().contains(checkInDate.toString())
+
+       if(!(reservationSet.toString().contains(room.toString()) && reservationSet.toString().contains(checkInDate.toString())
           && reservationSet.toString().contains(checkOutDate.toString()))){
                r = new Reservation(customer, room, checkInDate, checkOutDate);
              reservationSet.add(r);
@@ -45,20 +49,37 @@ public class ReservationService {
     }
 
     public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate ){
-       Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
 
-         for (IRoom rooms: roomMap.values()) {
-              if(reservationSet.toString().contains(checkInDate.toString())
-                 && reservationSet.toString().contains(checkOutDate.toString())
-                      && reservationSet.toString().contains(rooms.getRoomNumber())){
-                  System.out.println(" Sorry, it is Booked! Please Choose another date. ");
-                  //calendar.add(Calendar.DATE, 7);
-              }
-              else {
-                  roomArrayList.add(rooms);
-              }
-         }
+        /*calendar.add(Calendar.DAY_OF_MONTH, 7);
+        calendar1.add(Calendar.DAY_OF_MONTH, 7);
+        Date datein = calendar.getTime();
+        Date dateout = calendar1.getTime();*/
 
+        boolean isEmpty = reservationSet.isEmpty();
+       for (IRoom rooms: roomMap.values())
+       {
+        if (isEmpty) {
+            roomArrayList.add(rooms);
+        }
+
+        else if ((reservationSet.toString().contains(rooms.toString())
+                && reservationSet.toString().contains(checkInDate.toString()) && reservationSet.toString().contains(checkOutDate.toString())
+        )) {
+            //System.out.println(reservationSet);
+            //System.out.println("Sorry, all rooms are booked in the date you chosen.");
+                 /* if((reservationSet.size() == roomMap.size() && reservationSet.toString().contains(checkInDate.toString())
+                          && reservationSet.toString().contains(checkOutDate.toString()) )){
+                      //System.out.println("Recommend Search on: " + datein + "-" + dateout);
+                      //roomMap.get(rooms.getRoomNumber());
+                  }*/
+
+        } else if (!(reservationSet.toString().contains(rooms.toString()) && reservationSet.toString().contains(checkInDate.toString()) &&
+                reservationSet.toString().contains(checkOutDate.toString()))) {
+            roomArrayList.add(rooms);
+        }
+
+    }
         return roomArrayList;
     }
 

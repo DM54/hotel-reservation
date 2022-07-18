@@ -6,6 +6,7 @@ import model.Reservation;
 import service.CustomerService;
 import service.ReservationService;
 
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
 
@@ -33,7 +34,9 @@ public class HotelResource {
     }*/
 
     public static Collection<IRoom> findARoom(Date checkInDate, Date checkOutDate){
-        return ReservationService.findRooms(checkInDate,checkOutDate);
+
+            return ReservationService.findRooms(checkInDate,checkOutDate);
+
     }
 
 }
