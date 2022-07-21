@@ -15,13 +15,12 @@ public class ReservationService {
 
       static Map<String, IRoom> roomMap = new HashMap<String, IRoom>();
       static Set<IRoom> roomSet = new HashSet<IRoom>();
-      static Map<IRoom,Date> reservationSet = new HashMap<>();
-      static Map<IRoom,Date> reservationSet2 = new HashMap<>();
-      static  ArrayList<Reservation> reservationArrayList = new ArrayList<>();
-      static ArrayList<IRoom> roomArrayList = new ArrayList<>();
-      static Map<Date,Reservation>  reservationMap = new HashMap<>();
-    static Map<Date,Reservation>  reservationMapout = new HashMap<>();
-    static ArrayList<IRoom> roomss= new ArrayList<>();
+      static Map<IRoom,Date> reservationMap = new HashMap<>();
+      static Map<IRoom,Date> reservationMap2 = new HashMap<>();
+      static  Set<Reservation> reservationSet = new HashSet<>();
+      static Set<IRoom> roomArraySet = new HashSet<>();
+
+
     public static void addRoom(IRoom room){
        room = new Room(room.getRoomNumber(),room.getRoomPrice(), room.getRoomType());
        roomSet.add(room);
@@ -55,9 +54,9 @@ public class ReservationService {
        if(!(reservationSet.toString().contains(room.toString()) && reservationSet.toString().contains(date1.toString())
           && reservationSet.toString().contains(date2.toString()))){
                r = new Reservation(customer, room, date1, date2);
-             reservationSet.put(room,date1);
-             reservationSet2.put(room,date2);
-             reservationArrayList.add(r);
+             reservationMap.put(room,date1);
+             reservationMap2.put(room,date2);
+             reservationSet.add(r);
        }
           else {
               System.out.println("Sorry the room is booked, please choose another room");
@@ -77,71 +76,66 @@ public class ReservationService {
     }
 
    public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate ){
-       Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         Calendar calendar1 = Calendar.getInstance();
         DateFormat datein = new SimpleDateFormat("MM/dd/yyyy");
         DateFormat dateout = new SimpleDateFormat("MM/dd/yyyy");
+        String dateIn1 = datein.format(checkInDate);
+        String dateOut2 = dateout.format(checkOutDate);
         calendar.setTime(checkInDate);
         calendar1.setTime(checkOutDate);
 
-        calendar.add(Calendar.DAY_OF_MONTH, 7);
-        calendar1.add(Calendar.DAY_OF_MONTH, 7);
-        Date in = calendar.getTime();
-        Date out = calendar1.getTime();
-        String dateIn = datein.format(in);
-        String dateOut = dateout.format(out);
+           //boolean isEmpty = reservationMap.isEmpty();
+       calendar.add(Calendar.DAY_OF_MONTH, 7);
+       calendar1.add(Calendar.DAY_OF_MONTH, 7);
+       Date in = calendar.getTime();
+       Date out = calendar1.getTime();
+       String dateIn = datein.format(in);
+       String dateOut = dateout.format(out);
 
 
-           boolean isEmpty = reservationMap.isEmpty();
-           for (IRoom room : reservationSet.keySet()) {
-               if (!reservationSet.get(room).equals(checkInDate) && !reservationSet2.get(room).equals(checkOutDate)){
+           if (reservationSet.size() == roomMap.size()) {
 
-                            roomArrayList.add(room);
-                        }
+               //System.out.println("Sorry, All rooms are booked on these Dates : " + dateIn1 + "-" + dateOut2);
+               System.out.println("Recommend Search on: " + dateIn+ "-" + dateOut);
+               for (IRoom room : reservationMap.keySet()) {
+                   if (!reservationMap.get(room).equals(checkInDate) && !reservationMap2.get(room).equals(checkOutDate)) {
+                       roomArraySet.add(room);
+                   }
 
                }
-            for (IRoom room : roomMap.values()) {
 
-                if (!reservationArrayList.toString().contains(room.toString())) {
+           }
 
-                        roomArrayList.add(room);
-                }
-            }
+       else {
 
-            if(reservationArrayList.size()==roomMap.size()){
-                System.out.println("Sorry, All rooms are booked on these Dates!");
-                System.out.println("Recommend Search on: " + dateIn+ "-" + dateOut);
+           for (IRoom room11 : reservationMap.keySet()) {
+               if (!reservationMap.get(room11).equals(checkInDate) && !reservationMap2.get(room11).equals(checkOutDate)) {
 
-            }
+                   roomArraySet.add(room11);
+               }
 
+           }
+           for (IRoom room2 : roomMap.values()) {
+
+               if (!reservationSet.toString().contains(room2.toString())) {
+
+                   roomArraySet.add(room2);
+               }
+           }
+
+
+       }
 
                  /*if (isEmpty) {
                      roomArrayList.add(rooms);
-                 } else if (reservationMap.get(checkInDate) == rooms && reservationMapout.get(checkOutDate) == rooms*/
+                 } */
 
-                     //reservationSet.contains(rooms);
-
-                           /* if(reservationMap.get(calendar.getTime())!=checkInDate
-                                    && reservationMap.get(calendar1.getTime()) != checkOutDate){
-                                roomArrayList.add(rooms);
-                            }*/
-                     //System.out.println(reservationSet);
-                     //System.out.println("Sorry, all rooms are booked in the date you chosen.");
-                 /* if((reservationSet.size() == roomMap.size() && reservationSet.toString().contains(checkInDate.toString())
-                          && reservationSet.toString().contains(checkOutDate.toString()) )){
-                      //System.out.println("Recommend Search on: " + datein + "-" + dateout);
-                      //roomMap.get(rooms.getRoomNumber());
-                  }*/
-
-
-            // }
-
-
-
-       return roomArrayList;
+       return roomArraySet;
    }
 
-    //public static Collection<Reservation> getCustomerReservation(Customer customer){
+
+   //public static Collection<Reservation> getCustomerReservation(Customer customer){
        /* for (Reservation reservation : reservationSet){
               if((reservation.toString().contains(customer.getEmail()) && reservation.toString().contains(customer.getFirstName())
               && reservation.toString().contains(customer.getLastName()))){
