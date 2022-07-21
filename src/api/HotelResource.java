@@ -33,10 +33,10 @@ public class HotelResource {
         //return ReservationService.getCustomerReservation(customerEmail);
     }*/
 
-    public static Collection<IRoom> findARoom(Date checkInDate, Date checkOutDate){
+   /* public static Collection<IRoom> findARoom(Date checkInDate, Date checkOutDate){
 
-            return ReservationService.findRooms(checkInDate,checkOutDate);
+          //  return ReservationService.findRooms(checkInDate,checkOutDate);
 
-    }
+    }*/
 
 }
