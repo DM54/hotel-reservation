@@ -26,26 +26,27 @@ public class Tester {
         ReservationService.addRoom(new Room("101", 100.00, RoomTypeEnumeration.DOUBLE));
         ReservationService.addRoom(new Room("102", 100.00, RoomTypeEnumeration.DOUBLE));
         ReservationService.addRoom(new Room("100", 90.00, RoomTypeEnumeration.SINGLE));
-        //ReservationService.addRoom(new Room("120", 90.00, RoomTypeEnumeration.SINGLE));
+        ReservationService.addRoom(new Room("120", 0.00, RoomTypeEnumeration.SINGLE));
 
-        System.out.println("this is the reservation: " + ReservationService.reserveARoom(
+
+       System.out.println("this is the reservation: " + ReservationService.reserveARoom(
                 new Customer("a", "mm", "m@email.com"),
-                ReservationService.getARoom("104"), new Date("3/12/2022"), new Date("3/13/2022")));
+                ReservationService.getARoom("104"), new Date("3/2/2022"), new Date("3/27/2022")));
         System.out.println("this is the reservation: " + ReservationService.reserveARoom(
                 new Customer("aa", "dm", "dm@email.com"),
-                ReservationService.getARoom("110"), new Date("3/12/2022"), new Date("3/13/2022")));
+                ReservationService.getARoom("110"), new Date("3/19/2022"), new Date("3/20/2022")));
        System.out.println("this is the reservation: " + ReservationService.reserveARoom(
                 new Customer("a", "m", "am@email.com"),
-                ReservationService.getARoom("101"), new Date("3/12/2022"), new Date("3/13/2022")));
-        System.out.println("this is the reservation: " + ReservationService.reserveARoom(
+                ReservationService.getARoom("110"), new Date("3/19/2022"), new Date("3/20/2022")));
+      /* System.out.println("this is the reservation: " + ReservationService.reserveARoom(
                 new Customer("e", "l", "el@email.com"),
-                ReservationService.getARoom("100"), new Date("3/12/2022"), new Date("3/13/2022")));
+                ReservationService.getARoom("100"), new Date("3/19/2022"), new Date("3/20/2022")));
         System.out.println("this is the reservation: " + ReservationService.reserveARoom(
                 new Customer("g", "t", "gt@email.com"),
-                ReservationService.getARoom("102"), new Date("3/12/2022"), new Date("3/13/2022")));
+                ReservationService.getARoom("102"), new Date("3/19/2022"), new Date("3/20/2022")));*/
 
 
-       System.out.println(ReservationService.findRooms(new Date("3/20/2022"),new Date("3/22/2022")));
+      System.out.println(ReservationService.findRooms(new Date("3/2/2022"),new Date("3/27/2022")));
 
 
        /* ReservationService.PrintAllReservation();

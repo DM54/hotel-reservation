@@ -28,7 +28,7 @@ public class ReservationService {
     }
 
     public static IRoom getARoom(String roomId){
-        System.out.println(" From getARoom method: ");
+       // System.out.println(" From getARoom method: ");
         for (IRoom room1: roomSet
         ) {
             roomMap.put(room1.getRoomNumber(), room1);
@@ -85,24 +85,40 @@ public class ReservationService {
         calendar.setTime(checkInDate);
         calendar1.setTime(checkOutDate);
 
-           //boolean isEmpty = reservationMap.isEmpty();
        calendar.add(Calendar.DAY_OF_MONTH, 7);
        calendar1.add(Calendar.DAY_OF_MONTH, 7);
        Date in = calendar.getTime();
        Date out = calendar1.getTime();
        String dateIn = datein.format(in);
        String dateOut = dateout.format(out);
+       Date r1 = null;
+       Date r2 = null;
+       for (IRoom r: reservationMap.keySet()
+            ) {
+         r1 = reservationMap.get(r);
+         r2 = reservationMap2.get(r);
+       }
 
+       if (reservationSet.size()==0 || reservationMap.isEmpty() || reservationMap2.isEmpty()) {
+           for (IRoom rooms: roomSet
+                ) {
 
-           if (reservationSet.size() == roomMap.size()) {
+               roomArraySet.add(getARoom(rooms.getRoomNumber()));
+           }
+       //System.out.println(roomArraySet);
+       }
 
-               //System.out.println("Sorry, All rooms are booked on these Dates : " + dateIn1 + "-" + dateOut2);
-               System.out.println("Recommend Search on: " + dateIn+ "-" + dateOut);
-               for (IRoom room : reservationMap.keySet()) {
-                   if (!reservationMap.get(room).equals(checkInDate) && !reservationMap2.get(room).equals(checkOutDate)) {
-                       roomArraySet.add(room);
-                   }
+      else if (reservationSet.size() == roomMap.size() && r1.equals(checkInDate)
+                   && r2.equals(checkOutDate)) {
 
+                        System.out.println("Recommend Search on: " + dateIn+ "-" + dateOut);
+                        for (IRoom room : reservationMap.keySet()) {
+                            if (!reservationMap.get(room).equals(checkInDate) && !reservationMap2.get(room).equals(checkOutDate)) {
+                                roomArraySet.add(room);
+                            }
+                            else{
+                                roomArraySet.add(room);
+                            }
                }
 
            }
@@ -114,7 +130,6 @@ public class ReservationService {
 
                    roomArraySet.add(room11);
                }
-
            }
            for (IRoom room2 : roomMap.values()) {
 
@@ -122,21 +137,20 @@ public class ReservationService {
 
                    roomArraySet.add(room2);
                }
+
            }
 
 
        }
 
-                 /*if (isEmpty) {
-                     roomArrayList.add(rooms);
-                 } */
 
        return roomArraySet;
    }
 
 
-   //public static Collection<Reservation> getCustomerReservation(Customer customer){
-       /* for (Reservation reservation : reservationSet){
+   public static Collection<Reservation> getCustomerReservation(Customer customer){
+       Collection<Reservation> reservationArrayList = new ArrayList<>();
+       for (Reservation reservation : reservationSet){
               if((reservation.toString().contains(customer.getEmail()) && reservation.toString().contains(customer.getFirstName())
               && reservation.toString().contains(customer.getLastName()))){
                   reservationArrayList.add(reservation);
@@ -152,6 +166,6 @@ public class ReservationService {
             System.out.println(allreservations);
         }
        
-    }*/
+    }
       
 }
