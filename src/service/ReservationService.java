@@ -51,22 +51,19 @@ public class ReservationService {
         Date date1 = new SimpleDateFormat("MM/dd/yyyy").parse(dateIn);
         Date date2 = new SimpleDateFormat("MM/dd/yyyy").parse(dateOut);
 
-       if(!(reservationSet.toString().contains(room.toString()) && reservationSet.toString().contains(date1.toString())
+       if((reservationSet.toString().contains(room.toString()) && reservationSet.toString().contains(date1.toString())
           && reservationSet.toString().contains(date2.toString()))){
-               r = new Reservation(customer, room, date1, date2);
-             reservationMap.put(room,date1);
-             reservationMap2.put(room,date2);
-             reservationSet.add(r);
+           System.out.println("Sorry the room is booked, please choose another room");
        }
           else {
-              System.out.println("Sorry the room is booked, please choose another room");
+           r = new Reservation(customer, room, date1, date2);
+           reservationMap.put(room,date1);
+           reservationMap2.put(room,date2);
+           reservationSet.add(r);
+          // System.out.println("Thank you for booking with us!");
+
           }
 
-         /* for (IRoom room1: reservationSet.keySet()
-                ) {
-             System.out.println("IN " + reservationSet.get(room1));
-            System.out.println("OUT " + reservationSet2.get(room1));
-           }*/
 
        } catch (ParseException e) {
            throw new RuntimeException(e);

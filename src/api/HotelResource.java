@@ -24,19 +24,19 @@ public class HotelResource {
         return ReservationService.getARoom(roomNumber);
     }
 
-   /* public static Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date checkOutDate){
-       // return ReservationService.reserveARoom(customerEmail,room,checkInDate,checkOutDate);
+   public static Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date checkOutDate){
+       return ReservationService.reserveARoom(getCustomer(customerEmail),room,checkInDate,checkOutDate);
 
     }
 
     public static Collection<Reservation> getCustomerReservations(String customerEmail){
-        //return ReservationService.getCustomerReservation(customerEmail);
-    }*/
+        return ReservationService.getCustomerReservation(getCustomer(customerEmail));
+    }
 
-   /* public static Collection<IRoom> findARoom(Date checkInDate, Date checkOutDate){
+   public static Collection<IRoom> findARoom(Date checkInDate, Date checkOutDate){
 
-          //  return ReservationService.findRooms(checkInDate,checkOutDate);
+        return ReservationService.findRooms(checkInDate,checkOutDate);
 
-    }*/
+    }
 
 }
