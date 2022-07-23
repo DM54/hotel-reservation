@@ -8,6 +8,7 @@ import java.util.*;
 
 public class AdminResource {
     static Set<IRoom> allrooms = new HashSet<>();
+    static Set<IRoom> addrooms = new HashSet<>();
 
     public static Customer getCustomer(String Email){
      return CustomerService.getCustomer(Email);
@@ -17,13 +18,19 @@ public class AdminResource {
     public static void addRoom(List<IRoom> rooms){
         for (IRoom r: rooms
              ) {
-            ReservationService.addRoom(r);
+         ReservationService.addRoom(r);
+         addrooms.add(r);
         }
+
     }
 
     public static Collection<IRoom> getAllRooms(){
-        String id = null;
-        allrooms.add(ReservationService.getARoom(id));
+        for (IRoom rooms: addrooms
+             ) {
+            allrooms.add(rooms);
+            ReservationService.getARoom(rooms.getRoomNumber());
+        }
+
      return allrooms;
     }
 
