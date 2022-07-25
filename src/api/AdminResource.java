@@ -18,17 +18,20 @@ public class AdminResource {
     public static void addRoom(List<IRoom> rooms){
         for (IRoom r: rooms
              ) {
-         ReservationService.addRoom(r);
-         addrooms.add(r);
+            IRoom room = new Room(r.getRoomNumber(), r.getRoomPrice(), r.getRoomType());
+            ReservationService.addRoom(room);
+            addrooms.add(room);
         }
 
     }
 
     public static Collection<IRoom> getAllRooms(){
+
         for (IRoom rooms: addrooms
              ) {
-            allrooms.add(rooms);
-            ReservationService.getARoom(rooms.getRoomNumber());
+            IRoom room = new Room(rooms.getRoomNumber(), rooms.getRoomPrice(), rooms.getRoomType());
+            allrooms.add( ReservationService.getARoom(room.getRoomNumber()));
+
         }
 
      return allrooms;

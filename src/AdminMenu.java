@@ -52,17 +52,18 @@ public class AdminMenu {
                             String roomNumber = scanner.nextLine();
                             System.out.println("Please enter a price");
                             Double price = scanner.nextDouble();
+                            scanner.nextLine();
                             System.out.println("Please enter single or double");
-
+                            String rooms = scanner.nextLine();
                             List<IRoom> roomsList = new ArrayList<>();
                             IRoom room;
                             RoomTypeEnumeration [] enumerations = RoomTypeEnumeration.values();
-                            if (scanner.nextLine().equals("single")) {
+                            if (rooms.equals("single")) {
 
                                 room = new Room(roomNumber, price, SINGLE);
                                 roomsList.add(room);
 
-                            } else if ( scanner.nextLine().equals("double")) {
+                            } else if ( rooms.equals("double")) {
                                 room = new Room(roomNumber, price, DOUBLE);
                                 roomsList.add(room);
 

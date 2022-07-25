@@ -16,8 +16,9 @@ public class HotelResource {
         return CustomerService.getCustomer(email);
     }
 
-    public static void createACustomer(String email, String firstName, String lastName){
-        CustomerService.addCustomer(firstName,lastName,email);
+    public static void createACustomer(String firstName, String lastName, String email){
+        Customer customer = new Customer(firstName,lastName,email);
+        CustomerService.addCustomer(customer.getFirstName(), customer.getLastName(), customer.getEmail());
     }
 
     public static IRoom getRoom(String roomNumber){

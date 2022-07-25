@@ -1,4 +1,6 @@
+import api.AdminResource;
 import api.HotelResource;
+import model.Customer;
 import model.IRoom;
 import model.Room;
 import model.RoomTypeEnumeration;
@@ -42,34 +44,58 @@ public class MainMenu {
                            String dateOut = dateout.format(checkOutDate);
                            Date date1 = new SimpleDateFormat("MM/dd/yyyy").parse(dateIn);
                            Date date2 = new SimpleDateFormat("MM/dd/yyyy").parse(dateOut);*/
-
-
                            System.out.println(HotelResource.findARoom(new Date(checkInDate), new Date(checkOutDate)));
 
-                           System.out.println("Please create an account first: ");
-                           System.out.println("Please enter your email, first name and last name. ");
-                           System.out.println("Please enter your email: ");
-                           String customerEmail = scanner.nextLine();
-                           System.out.println("Please enter your first name: ");
-                           String firstName = scanner.nextLine();
-                           System.out.println("Please enter your last name: ");
-                           String lastName = scanner.nextLine();
-                           HotelResource.createACustomer(customerEmail, firstName, lastName);
-                           System.out.println("Please enter your email, room number and your CheckIn and Checkout dates: ");
-                           System.out.println("Please enter your email: ");
-                           String customerEmail1 = scanner.nextLine();
-                           System.out.println("Please enter the room number: ");
-                           String roomNumber = scanner.nextLine();
-                           System.out.println("Please enter a date to CheckIn: ");
-                           String checkInDate1 = scanner.nextLine();
-                           System.out.println("Please enter a date to CheckOut: ");
-                           String checkOutDate1 = scanner.nextLine();
+                           System.out.println("Do you have an account with us?");
+                           System.out.println("Yes Or No -> y or n");
+                           String YesorNo = Character.toString(scanner.next().charAt(0));
+                           scanner.nextLine();
+                           if(YesorNo.equals(Character.toString('n'))) {
+                               System.out.println("Please create an account: ");
+
+                               System.out.println("Please enter your email: ");
+                               String customerEmail = scanner.nextLine();
+                               System.out.println("Please enter your first name: ");
+                               String firstName = scanner.nextLine();
+                               System.out.println("Please enter your last name: ");
+                               String lastName = scanner.nextLine();
+                               Customer c1 = new Customer(firstName, lastName, customerEmail);
+                               HotelResource.createACustomer(c1.getFirstName(), c1.getLastName(), c1.getEmail());
+
+                               System.out.println("You may book a room:");
+                               System.out.println("Please enter your email: ");
+                               String customerEmail1 = scanner.nextLine();
+                               System.out.println("Please enter the room number: ");
+                               String roomNumber = scanner.nextLine();
+                               System.out.println("Please enter a date to CheckIn: ");
+                               String checkInDate1 = scanner.nextLine();
+                               System.out.println("Please enter a date to CheckOut: ");
+                               String checkOutDate1 = scanner.nextLine();
+                               String customeremail = String.valueOf(AdminResource.getCustomer(customerEmail1));
+                               System.out.println(HotelResource.bookARoom
+                                       (customeremail, HotelResource.getRoom(roomNumber), new Date(checkInDate1), new Date(checkOutDate1)));
+
+
+                           } else if (YesorNo.equals(Character.toString('y'))) {
+                               System.out.println("Please enter your email, room number and your CheckIn and Checkout dates: ");
+                               System.out.println("Please enter your email: ");
+                               String customerEmail1 = scanner.nextLine();
+                               System.out.println("Please enter the room number: ");
+                               String roomNumber = scanner.nextLine();
+                               System.out.println("Please enter a date to CheckIn: ");
+                               String checkInDate1 = scanner.nextLine();
+                               System.out.println("Please enter a date to CheckOut: ");
+                               String checkOutDate1 = scanner.nextLine();
                           /* String dateIn1 = datein.format(checkInDate1);
                            String dateOut1 = dateout.format(checkOutDate1);
                            Date date11 = new SimpleDateFormat("MM/dd/yyyy").parse(dateIn1);
                            Date date21 = new SimpleDateFormat("MM/dd/yyyy").parse(dateOut1);*/
-                           System.out.println(HotelResource.bookARoom
-                                   (customerEmail1, HotelResource.getRoom(roomNumber), new Date(checkInDate1), new Date(checkOutDate1)));
+                               String customeremail = String.valueOf(AdminResource.getCustomer(customerEmail1));
+                               System.out.println(HotelResource.bookARoom
+                                       (customeremail, HotelResource.getRoom(roomNumber), new Date(checkInDate1), new Date(checkOutDate1)));
+
+                           }
+                           running = false;
                            break;
 
                        case "2":
@@ -77,7 +103,7 @@ public class MainMenu {
                            System.out.println("Enter your email: ");
                            String customerEmail11 = scanner.nextLine();
                            System.out.println(HotelResource.getCustomerReservations(customerEmail11));
-
+                           running = false;
                            break;
 
                        case "3":
@@ -89,8 +115,8 @@ public class MainMenu {
                            String firstName1 = scanner.nextLine();
                            System.out.println("Please enter your last name: ");
                            String lastName1 = scanner.nextLine();
-                           HotelResource.createACustomer(customerEmail12, firstName1, lastName1);
-
+                           Customer c = new Customer(firstName1,lastName1,customerEmail12);
+                           HotelResource.createACustomer(c.getFirstName(), c.getLastName(), c.getEmail());
                            break;
 
                        case "4":
