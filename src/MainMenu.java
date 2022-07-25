@@ -3,6 +3,7 @@ import api.HotelResource;
 import model.Customer;
 
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -29,19 +30,20 @@ public class MainMenu {
 
                     switch (scanner.nextLine()){
                         case "1":
-                            findReserveARoom(scanner);
+                            findReserveARoom(scanner, running);
                             running = false;
                             break;
 
                         case "2":
                             System.out.println("Enter your email: ");
                             String customerEmail11 = scanner.nextLine();
-                            System.out.println(HotelResource.getCustomer(customerEmail11));
+                            System.out.println(HotelResource.getCustomerReservations(customerEmail11));
                             running = false;
                             break;
 
                         case "3":
-                            CreateCustomerAccount(scanner);
+                            CreateCustomerAccount(scanner, running);
+                           // running = true;
                             break;
 
                         case "4":
@@ -75,9 +77,9 @@ public class MainMenu {
 
     }
 
-    public static void findReserveARoom(Scanner scanner){
+    public static void findReserveARoom(Scanner scanner, boolean running){
         System.out.println("Please enter a date to CheckIn and CheckOut");
-                System.out.println("Please enter a date to CheckIn: ");
+        System.out.println("Please enter a date to CheckIn: ");
         String checkInDate = scanner.nextLine();
         System.out.println("Please enter a date to CheckOut: ");
         String checkOutDate = scanner.nextLine();
@@ -89,7 +91,7 @@ public class MainMenu {
         char YesorNo = scanner.next().charAt(0);
         scanner.nextLine();
         if(YesorNo=='n') {
-            CreateCustomerAccount(scanner);
+            CreateCustomerAccount(scanner, running);
             BookARoom(scanner);
 
 
@@ -100,17 +102,32 @@ public class MainMenu {
 
     }
 
-    public static void CreateCustomerAccount(Scanner scanner){
-        System.out.println("Please create an account: ");
+    public static void CreateCustomerAccount(Scanner scanner, boolean running){
+        try {
+            String emailregex = "^(.+)@(.+).(.+)$";
+            Pattern pattern = Pattern.compile(emailregex);
+            System.out.println("Please create an account: ");
 
-        System.out.println("Please enter your email: ");
-        String customerEmail = scanner.nextLine();
-        System.out.println("Please enter your first name: ");
-        String firstName = scanner.nextLine();
-        System.out.println("Please enter your last name: ");
-        String lastName = scanner.nextLine();
-        Customer c1 = new Customer(firstName, lastName, customerEmail);
-        HotelResource.createACustomer(c1.getFirstName(), c1.getLastName(), c1.getEmail());
+            System.out.println("Please enter your email: ");
+            String customerEmail = scanner.nextLine();
+            if(!pattern.matcher(customerEmail).matches()){
+                System.out.println("Invalid email, Enter the format: name@domain.com: ");
+                scanner.nextLine();
+                running = true;
+
+            }
+                System.out.println("Please enter your first name: ");
+                String firstName = scanner.nextLine();
+                System.out.println("Please enter your last name: ");
+                String lastName = scanner.nextLine();
+                //Customer c1 = new Customer(firstName, lastName, customerEmail);
+                HotelResource.createACustomer(firstName, lastName, customerEmail);
+                //running = true;
+
+
+        }catch (IllegalArgumentException e){
+            e.getLocalizedMessage();
+        }
     }
 
     public static void BookARoom(Scanner scanner){

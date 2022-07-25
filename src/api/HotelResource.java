@@ -9,16 +9,24 @@ import service.ReservationService;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class HotelResource {
-
+    static Set<Customer> customerSet = new HashSet<>();
     public static Customer getCustomer(String email){
         return CustomerService.getCustomer(email);
     }
 
     public static void createACustomer(String firstName, String lastName, String email){
         Customer customer = new Customer(firstName,lastName,email);
-        CustomerService.addCustomer(customer.getFirstName(), customer.getLastName(), customer.getEmail());
+        customerSet.add(customer);
+
+        for (Customer c: customerSet
+             ) {
+            CustomerService.addCustomer(c.getFirstName(), c.getLastName(), c.getEmail());
+        }
+
     }
 
     public static IRoom getRoom(String roomNumber){
