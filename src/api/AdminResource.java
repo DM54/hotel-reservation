@@ -29,8 +29,11 @@ public class AdminResource {
 
         for (IRoom rooms: addrooms
              ) {
-            IRoom room = new Room(rooms.getRoomNumber(), rooms.getRoomPrice(), rooms.getRoomType());
-            allrooms.add( ReservationService.getARoom(room.getRoomNumber()));
+           // IRoom room = new Room(rooms.getRoomNumber(), rooms.getRoomPrice(), rooms.getRoomType());
+            if(!addrooms.contains(rooms.toString())){
+                allrooms.add(ReservationService.getARoom(rooms.getRoomNumber()));
+
+            }
 
         }
 

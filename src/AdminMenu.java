@@ -1,7 +1,6 @@
 import api.AdminResource;
 import model.IRoom;
 import model.Room;
-import model.RoomTypeEnumeration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import static model.RoomTypeEnumeration.DOUBLE;
 import static model.RoomTypeEnumeration.SINGLE;
 
 public class AdminMenu {
-    public static void main(String [] args){
+    public static void main(String[] args) {
 
         admin();
     }
@@ -47,29 +46,7 @@ public class AdminMenu {
 
                             break;
                         case "4":
-                            System.out.println("Please enter a room number, price and single or double");
-                            System.out.println("Please enter a room number");
-                            String roomNumber = scanner.nextLine();
-                            System.out.println("Please enter a price");
-                            Double price = scanner.nextDouble();
-                            scanner.nextLine();
-                            System.out.println("Please enter single or double");
-                            String rooms = scanner.nextLine();
-                            List<IRoom> roomsList = new ArrayList<>();
-                            IRoom room;
-                            RoomTypeEnumeration [] enumerations = RoomTypeEnumeration.values();
-                            if (rooms.equals("single")) {
-
-                                room = new Room(roomNumber, price, SINGLE);
-                                roomsList.add(room);
-
-                            } else if ( rooms.equals("double")) {
-                                room = new Room(roomNumber, price, DOUBLE);
-                                roomsList.add(room);
-
-                            }
-                            AdminResource.addRoom(roomsList);
-                            // running = true;
+                            AddRooms(scanner);
                             break;
                         case "5":
                             System.out.println(" Back to Main Menu: ");
@@ -90,6 +67,34 @@ public class AdminMenu {
         }catch (Exception e){
             e.getLocalizedMessage();
         }
+    }
+
+
+    public static void AddRooms(Scanner scanner){
+        System.out.println("Please enter a room number, price and single or double");
+        System.out.println("Please enter a room number");
+        String roomNumber = scanner.nextLine();
+        System.out.println("Please enter a price");
+        Double price = scanner.nextDouble();
+        scanner.nextLine();
+        System.out.println("Please enter single or double");
+        String rooms = scanner.nextLine();
+        List<IRoom> roomsList = new ArrayList<>();
+        IRoom room;
+
+        if (rooms.equals("single")) {
+
+            room = new Room(roomNumber, price, SINGLE);
+            roomsList.add(room);
+
+        } else if ( rooms.equals("double")) {
+            room = new Room(roomNumber, price, DOUBLE);
+            roomsList.add(room);
+
+        }
+        AdminResource.addRoom(roomsList);
+
+
     }
 
 }
