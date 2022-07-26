@@ -13,17 +13,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class HotelResource {
-    static Set<Customer> customerSet = new HashSet<>();
     public static Customer getCustomer(String email){
         return CustomerService.getCustomer(email);
     }
 
     public static void createACustomer(String firstName, String lastName, String email){
-       // Customer customer = new Customer(firstName,lastName,email);
-        //customerSet.add(customer);
         CustomerService.addCustomer(firstName,lastName,email);
-
-
     }
 
     public static IRoom getRoom(String roomNumber){

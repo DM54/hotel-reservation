@@ -27,30 +27,20 @@ public class MainMenu {
                     System.out.println("3. Create an Account");
                     System.out.println("4. Admin");
                     System.out.println("5. Exit");
-                    while (scanner.hasNextLine()) {
+                   while (scanner.hasNextLine()) {
                         switch (scanner.nextLine()) {
                             case "1":
-                                findReserveARoom(scanner, true);
-                                running = false;
+                                findReserveARoom(scanner);
+                               //running = true;
                                 break;
 
                             case "2":
-                                String emailregex = "^(.+)@(.+).(.+)$";
-                                Pattern pattern = Pattern.compile(emailregex);
-                                System.out.println("Enter your email: ");
-                                String customerEmail11 = scanner.nextLine();
-                                if(!pattern.matcher(customerEmail11).matches()){
-                                    System.out.println("Invalid email, Enter the format: name@domain.com: ");
-                                    scanner.nextLine();
-                                    running = true;
-
-                                }
-                                System.out.println(HotelResource.getCustomerReservations(customerEmail11));
+                                SeeMyReservations(scanner);
                                 //running = false;
                                 break;
 
                             case "3":
-                                CreateCustomerAccount(scanner, true);
+                                CreateCustomerAccount(scanner);
                                 // running = true;
                                 break;
 
@@ -71,7 +61,7 @@ public class MainMenu {
                                 break;
 
                         }
-                    }
+                   }
                     scanner.close();
 
                 } catch (Exception exception) {
@@ -87,7 +77,7 @@ public class MainMenu {
 
     }
 
-    public static void findReserveARoom(Scanner scanner, boolean running){
+    public static void findReserveARoom(Scanner scanner){
         System.out.println("Please enter a date to CheckIn and CheckOut");
         System.out.println("Please enter a date to CheckIn: ");
         String checkInDate = scanner.nextLine();
@@ -101,18 +91,18 @@ public class MainMenu {
         char YesorNo = scanner.next().charAt(0);
         scanner.nextLine();
         if(YesorNo=='n') {
-            CreateCustomerAccount(scanner, running);
-            BookARoom(scanner, running);
+            CreateCustomerAccount(scanner);
+            BookARoom(scanner);
 
 
         } else if (YesorNo=='y') {
-            BookARoom(scanner, running);
+            BookARoom(scanner);
 
         }
 
     }
 
-    public static void CreateCustomerAccount(Scanner scanner, boolean running){
+    public static void CreateCustomerAccount(Scanner scanner){
         try {
             String emailregex = "^(.+)@(.+).(.+)$";
             Pattern pattern = Pattern.compile(emailregex);
@@ -123,7 +113,7 @@ public class MainMenu {
             if(!pattern.matcher(customerEmail).matches()){
                 System.out.println("Invalid email, Enter the format: name@domain.com: ");
                 scanner.nextLine();
-                running = true;
+               // running = true;
 
             }
                 System.out.println("Please enter your first name: ");
@@ -140,7 +130,7 @@ public class MainMenu {
         }
     }
 
-    public static void BookARoom(Scanner scanner, boolean running){
+    public static void BookARoom(Scanner scanner){
         try{
             String emailregex = "^(.+)@(.+).(.+)$";
             Pattern pattern = Pattern.compile(emailregex);
@@ -150,9 +140,7 @@ public class MainMenu {
             String customerEmail1 = scanner.nextLine();
             if(!pattern.matcher(customerEmail1).matches()){
                 System.out.println("Invalid email, Enter the format: name@domain.com: ");
-                scanner.nextLine();
-                running = true;
-
+               customerEmail1 = scanner.nextLine();
             }
             System.out.println("Please enter the room number: ");
             String roomNumber = scanner.nextLine();
@@ -160,24 +148,46 @@ public class MainMenu {
             String checkInDate1 = scanner.nextLine();
             System.out.println("Please enter a date to CheckOut: ");
             String checkOutDate1 = scanner.nextLine();
-            String customeremail = String.valueOf(AdminResource.getCustomer(customerEmail1));
             System.out.println(HotelResource.bookARoom
-                    (customeremail, HotelResource.getRoom(roomNumber),new Date(checkInDate1), new Date(checkOutDate1)));
+                    (customerEmail1, HotelResource.getRoom(roomNumber),new Date(checkInDate1), new Date(checkOutDate1)));
+
         }catch (IllegalArgumentException exception){
             exception.getLocalizedMessage();
         }
+    }
 
-
+    public static void SeeMyReservations(Scanner scanner){
+        try {
+            String emailregex = "^(.+)@(.+).(.+)$";
+            Pattern pattern = Pattern.compile(emailregex);
+            System.out.println("Enter your email: ");
+            String customerEmail11 = scanner.nextLine();
+            if (!pattern.matcher(customerEmail11).matches()) {
+                System.out.println("Invalid email, Enter the format: name@domain.com: ");
+                scanner.nextLine();
+                //running = true;
+            }
+            System.out.println(HotelResource.getCustomerReservations(customerEmail11));
+        }catch (InputMismatchException e){
+            e.getLocalizedMessage();
+        }
     }
 
     public static void exit(Scanner scanner){
-        System.out.println("Do you want to exit?");
-        System.out.println("Yes Or No -> y or n");
-        char YesOrNo = scanner.next().charAt(0);
-        scanner.nextLine();
-        if(YesOrNo=='y'){
-            scanner.close();
+        try {
+            System.out.println("Do you want to exit?");
+            System.out.println("Yes Or No -> y or n");
+            String YesOrNo = scanner.next();
+            scanner.nextLine();
+            if(YesOrNo.equals("y")){
+                scanner.close();
+            }else if(YesOrNo.equals("n")){
+
+            }
+        }catch (InputMismatchException e){
+            e.getLocalizedMessage();
         }
+
 }
 }
 
