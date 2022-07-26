@@ -48,7 +48,8 @@ public class ReservationService {
 
        if((reservationSet.toString().contains(room.toString()) && reservationSet.toString().contains(date1.toString())
           && reservationSet.toString().contains(date2.toString()))){
-           System.out.println("Sorry the room is booked, please choose another room");
+           System.out.println("Sorry the room is booked, try again.");
+
        }
           else {
            r = new Reservation(customer, room, date1, date2);
@@ -56,6 +57,7 @@ public class ReservationService {
            reservationMap2.put(room,date2);
            reservationSet.add(r);
            System.out.println("Thank you for booking with us!");
+           System.out.println(getCustomerReservation(customer));
           }
 
 

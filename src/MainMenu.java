@@ -19,7 +19,6 @@ public class MainMenu {
         try {
             Scanner scanner = new Scanner(System.in);
 
-
             while(running) {
                 try {
                     System.out.println("1. Find and Reserve a room");
@@ -105,7 +104,7 @@ public class MainMenu {
             String customerEmail = scanner.nextLine();
             if(!pattern.matcher(customerEmail).matches()){
                 System.out.println("Invalid email, Enter the format: name@domain.com: ");
-                scanner.nextLine();
+                customerEmail = scanner.nextLine();
 
             }
                 System.out.println("Please enter your first name: ");
@@ -113,6 +112,14 @@ public class MainMenu {
                 System.out.println("Please enter your last name: ");
                 String lastName = scanner.nextLine();
                 HotelResource.createACustomer(firstName, lastName, customerEmail);
+                //System.out.println("Thank you for signing up!");
+                Customer c = new Customer(firstName,lastName,customerEmail);
+            if(HotelResource.getCustomer(customerEmail).equals(c.toString())){
+                System.out.println("The account already exist!");
+            }else {
+                //HotelResource.createACustomer(firstName, lastName, customerEmail);
+                System.out.println("Thank you for signing up!");
+            }
 
         }catch (IllegalArgumentException e){
             e.getLocalizedMessage();
@@ -153,7 +160,7 @@ public class MainMenu {
             String customerEmail11 = scanner.nextLine();
             if (!pattern.matcher(customerEmail11).matches()) {
                 System.out.println("Invalid email, Enter the format: name@domain.com: ");
-                scanner.nextLine();
+                customerEmail11 = scanner.nextLine();
             }
             System.out.println(HotelResource.getCustomerReservations(customerEmail11));
         }catch (InputMismatchException e){
@@ -164,7 +171,7 @@ public class MainMenu {
     public static void exit(Scanner scanner){
         try {
             System.out.println("Do you want to exit?");
-            System.out.println("Yes Or No -> y or n");
+            System.out.println("y or n");
             String YesOrNo = scanner.next();
             scanner.nextLine();
             if(YesOrNo.equals("y")){
