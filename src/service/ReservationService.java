@@ -2,14 +2,11 @@ package service;
 
 import model.*;
 
-import javax.swing.text.DateFormatter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 public class ReservationService {
 
@@ -44,8 +41,6 @@ public class ReservationService {
           DateFormat dateout = new SimpleDateFormat("MM/dd/yyyy");
           String dateIn = datein.format(checkInDate);
           String dateOut = dateout.format(checkOutDate);
-          //System.out.println(dateIn);
-          //System.out.println(dateOut);
 
        try {
         Date date1 = new SimpleDateFormat("MM/dd/yyyy").parse(dateIn);
@@ -60,8 +55,7 @@ public class ReservationService {
            reservationMap.put(room,date1);
            reservationMap2.put(room,date2);
            reservationSet.add(r);
-          // System.out.println("Thank you for booking with us!");
-
+           System.out.println("Thank you for booking with us!");
           }
 
 
@@ -102,13 +96,13 @@ public class ReservationService {
 
                roomArraySet.add(getARoom(rooms.getRoomNumber()));
            }
-       //System.out.println(roomArraySet);
+
        }
 
       else if (reservationSet.size() == roomMap.size() && r1.equals(checkInDate)
                    && r2.equals(checkOutDate)) {
-
-                        System.out.println("Recommend Search on: " + dateIn+ "-" + dateOut);
+                        System.out.println("All Rooms are booked!");
+                        System.out.println("Recommend on: " + dateIn+ "-" + dateOut);
                         for (IRoom room : reservationMap.keySet()) {
                             if (!reservationMap.get(room).equals(checkInDate) && !reservationMap2.get(room).equals(checkOutDate)) {
                                 roomArraySet.add(room);

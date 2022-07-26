@@ -27,21 +27,18 @@ public class MainMenu {
                     System.out.println("3. Create an Account");
                     System.out.println("4. Admin");
                     System.out.println("5. Exit");
-                   while (scanner.hasNextLine()) {
-                        switch (scanner.nextLine()) {
+                    String userInput = scanner.nextLine();
+                        switch (userInput) {
                             case "1":
                                 findReserveARoom(scanner);
-                               //running = true;
                                 break;
 
                             case "2":
                                 SeeMyReservations(scanner);
-                                //running = false;
                                 break;
 
                             case "3":
                                 CreateCustomerAccount(scanner);
-                                // running = true;
                                 break;
 
                             case "4":
@@ -61,14 +58,10 @@ public class MainMenu {
                                 break;
 
                         }
-                   }
-                    scanner.close();
 
                 } catch (Exception exception) {
                     exception.getLocalizedMessage();
 
-                }finally {
-                    scanner.close();
                 }
             }
         }catch (Exception e){
@@ -113,17 +106,13 @@ public class MainMenu {
             if(!pattern.matcher(customerEmail).matches()){
                 System.out.println("Invalid email, Enter the format: name@domain.com: ");
                 scanner.nextLine();
-               // running = true;
 
             }
                 System.out.println("Please enter your first name: ");
                 String firstName = scanner.nextLine();
                 System.out.println("Please enter your last name: ");
                 String lastName = scanner.nextLine();
-                //Customer c1 = new Customer(firstName, lastName, customerEmail);
                 HotelResource.createACustomer(firstName, lastName, customerEmail);
-                //running = true;
-
 
         }catch (IllegalArgumentException e){
             e.getLocalizedMessage();
@@ -148,8 +137,8 @@ public class MainMenu {
             String checkInDate1 = scanner.nextLine();
             System.out.println("Please enter a date to CheckOut: ");
             String checkOutDate1 = scanner.nextLine();
-            System.out.println(HotelResource.bookARoom
-                    (customerEmail1, HotelResource.getRoom(roomNumber),new Date(checkInDate1), new Date(checkOutDate1)));
+            HotelResource.bookARoom
+                    (customerEmail1, HotelResource.getRoom(roomNumber),new Date(checkInDate1), new Date(checkOutDate1));
 
         }catch (IllegalArgumentException exception){
             exception.getLocalizedMessage();
@@ -165,7 +154,6 @@ public class MainMenu {
             if (!pattern.matcher(customerEmail11).matches()) {
                 System.out.println("Invalid email, Enter the format: name@domain.com: ");
                 scanner.nextLine();
-                //running = true;
             }
             System.out.println(HotelResource.getCustomerReservations(customerEmail11));
         }catch (InputMismatchException e){

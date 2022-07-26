@@ -8,17 +8,15 @@ public class CustomerService {
 
 
    static Map<String,Customer> customerMap = new HashMap<String, Customer>();
-   static ArrayList<Customer> customerList = new ArrayList<Customer>();
+   static  Set<Customer> customerSet = new HashSet<>();
+   static Set<Customer> getCustomerSet = new HashSet<>();
     public static void addCustomer(String firstName, String lastName, String email){
        Customer customer = new Customer(firstName, lastName, email);
-       customerList.add(customer);
-
-       // System.out.println(" From addCustomer method: " + customerList);
+       customerSet.add(customer);
     }
 
     public static Customer getCustomer(String customerEmail){
-        System.out.println(" From getCustomer method ");
-        for (Customer c: customerList
+        for (Customer c: customerSet
         ) {
             customerMap.put(c.getEmail(),c);
         }
@@ -26,11 +24,11 @@ public class CustomerService {
     }
 
     public static Collection<Customer> getAllCustomers(){
-        System.out.println(" From getAllCustomers method ");
-      for (int i=0; i<customerList.size(); i++){
-          customerList.get(i);
-      }
-       return customerList;
+        for (Customer c: customerSet
+             ) {
+            getCustomerSet.add(getCustomer(c.getEmail()));
+        }
+       return getCustomerSet;
     }
 
 
