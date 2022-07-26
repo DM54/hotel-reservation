@@ -27,42 +27,52 @@ public class MainMenu {
                     System.out.println("3. Create an Account");
                     System.out.println("4. Admin");
                     System.out.println("5. Exit");
+                    while (scanner.hasNextLine()) {
+                        switch (scanner.nextLine()) {
+                            case "1":
+                                findReserveARoom(scanner, true);
+                                running = false;
+                                break;
 
-                    switch (scanner.nextLine()){
-                        case "1":
-                            findReserveARoom(scanner, running);
-                            running = false;
-                            break;
+                            case "2":
+                                String emailregex = "^(.+)@(.+).(.+)$";
+                                Pattern pattern = Pattern.compile(emailregex);
+                                System.out.println("Enter your email: ");
+                                String customerEmail11 = scanner.nextLine();
+                                if(!pattern.matcher(customerEmail11).matches()){
+                                    System.out.println("Invalid email, Enter the format: name@domain.com: ");
+                                    scanner.nextLine();
+                                    running = true;
 
-                        case "2":
-                            System.out.println("Enter your email: ");
-                            String customerEmail11 = scanner.nextLine();
-                            System.out.println(HotelResource.getCustomerReservations(customerEmail11));
-                            running = false;
-                            break;
+                                }
+                                System.out.println(HotelResource.getCustomerReservations(customerEmail11));
+                                //running = false;
+                                break;
 
-                        case "3":
-                            CreateCustomerAccount(scanner, running);
-                           // running = true;
-                            break;
+                            case "3":
+                                CreateCustomerAccount(scanner, true);
+                                // running = true;
+                                break;
 
-                        case "4":
-                            System.out.println(" Admin Menu: ");
-                            AdminMenu adminMenu = new AdminMenu();
-                            adminMenu.admin();
+                            case "4":
+                                System.out.println(" Admin Menu: ");
+                                AdminMenu adminMenu = new AdminMenu();
+                                adminMenu.admin();
 
-                            break;
+                                break;
 
-                        case "5":
-                            exit(scanner);
-                            break;
+                            case "5":
+                                exit(scanner);
+                                break;
 
-                        default:
-                            System.out.println(" Invalid input, Please choose from 1-5");
-                            running = true;
-                            break;
+                            default:
+                                System.out.println(" Invalid input, Please choose from 1-5");
+                                running = true;
+                                break;
 
+                        }
                     }
+                    scanner.close();
 
                 } catch (Exception exception) {
                     exception.getLocalizedMessage();
@@ -92,11 +102,11 @@ public class MainMenu {
         scanner.nextLine();
         if(YesorNo=='n') {
             CreateCustomerAccount(scanner, running);
-            BookARoom(scanner);
+            BookARoom(scanner, running);
 
 
         } else if (YesorNo=='y') {
-            BookARoom(scanner);
+            BookARoom(scanner, running);
 
         }
 
@@ -130,19 +140,33 @@ public class MainMenu {
         }
     }
 
-    public static void BookARoom(Scanner scanner){
-        System.out.println("You may book a room:");
-        System.out.println("Please enter your email: ");
-        String customerEmail1 = scanner.nextLine();
-        System.out.println("Please enter the room number: ");
-        String roomNumber = scanner.nextLine();
-        System.out.println("Please enter a date to CheckIn: ");
-        String checkInDate1 = scanner.nextLine();
-        System.out.println("Please enter a date to CheckOut: ");
-        String checkOutDate1 = scanner.nextLine();
-        String customeremail = String.valueOf(AdminResource.getCustomer(customerEmail1));
-        System.out.println(HotelResource.bookARoom
-                        (customeremail, HotelResource.getRoom(roomNumber),new Date(checkInDate1), new Date(checkOutDate1)));
+    public static void BookARoom(Scanner scanner, boolean running){
+        try{
+            String emailregex = "^(.+)@(.+).(.+)$";
+            Pattern pattern = Pattern.compile(emailregex);
+
+            System.out.println("You may book a room:");
+            System.out.println("Please enter your email: ");
+            String customerEmail1 = scanner.nextLine();
+            if(!pattern.matcher(customerEmail1).matches()){
+                System.out.println("Invalid email, Enter the format: name@domain.com: ");
+                scanner.nextLine();
+                running = true;
+
+            }
+            System.out.println("Please enter the room number: ");
+            String roomNumber = scanner.nextLine();
+            System.out.println("Please enter a date to CheckIn: ");
+            String checkInDate1 = scanner.nextLine();
+            System.out.println("Please enter a date to CheckOut: ");
+            String checkOutDate1 = scanner.nextLine();
+            String customeremail = String.valueOf(AdminResource.getCustomer(customerEmail1));
+            System.out.println(HotelResource.bookARoom
+                    (customeremail, HotelResource.getRoom(roomNumber),new Date(checkInDate1), new Date(checkOutDate1)));
+        }catch (IllegalArgumentException exception){
+            exception.getLocalizedMessage();
+        }
+
 
     }
 

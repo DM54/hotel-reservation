@@ -19,13 +19,10 @@ public class HotelResource {
     }
 
     public static void createACustomer(String firstName, String lastName, String email){
-        Customer customer = new Customer(firstName,lastName,email);
-        customerSet.add(customer);
+       // Customer customer = new Customer(firstName,lastName,email);
+        //customerSet.add(customer);
+        CustomerService.addCustomer(firstName,lastName,email);
 
-        for (Customer c: customerSet
-             ) {
-            CustomerService.addCustomer(c.getFirstName(), c.getLastName(), c.getEmail());
-        }
 
     }
 
