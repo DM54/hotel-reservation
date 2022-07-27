@@ -21,11 +21,14 @@ public class AdminMenu {
 
             while(running) {
                 try {
+                    System.out.println("Please select a number from the menu option");
+                    System.out.println("---------------------------------------------");
                     System.out.println("1. See All Customers");
                     System.out.println("2. See All Rooms");
                     System.out.println("3. See All Reservations");
                     System.out.println("4. Add a Room");
                     System.out.println("5. Back to Main Menu");
+                    System.out.println("---------------------------------------------");
                     String userInput = scanner.nextLine();
 
                     switch (userInput) {

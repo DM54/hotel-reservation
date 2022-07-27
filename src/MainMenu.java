@@ -21,11 +21,15 @@ public class MainMenu {
 
             while(running) {
                 try {
+                    System.out.println("Welcome to Hotel Reservation");
+                    System.out.println("Please select a number from the menu option");
+                    System.out.println("---------------------------------------------");
                     System.out.println("1. Find and Reserve a room");
                     System.out.println("2. See my Reservations");
                     System.out.println("3. Create an Account");
                     System.out.println("4. Admin");
                     System.out.println("5. Exit");
+                    System.out.println("---------------------------------------------");
                     String userInput = scanner.nextLine();
                         switch (userInput) {
                             case "1":
@@ -48,7 +52,20 @@ public class MainMenu {
                                 break;
 
                             case "5":
-                                exit(scanner);
+                                try {
+                                    System.out.println("Do you want to exit?");
+                                    System.out.println("Please enter y or n");
+                                    String YesOrNo = scanner.next();
+                                    scanner.nextLine();
+                                    if(YesOrNo.equals("y")){
+                                        scanner.close();
+                                        running=false;
+                                    }else if(YesOrNo.equals("n")){
+                                        running=true;
+                                    }
+                                }catch (InputMismatchException e){
+                                    e.getLocalizedMessage();
+                                }
                                 break;
 
                             default:
@@ -71,15 +88,15 @@ public class MainMenu {
 
     public static void findReserveARoom(Scanner scanner){
         System.out.println("Please enter a date to CheckIn and CheckOut");
-        System.out.println("Please enter a date to CheckIn: ");
+        System.out.println("Please enter a date to CheckIn: in the format mm/dd/yyyy ");
         String checkInDate = scanner.nextLine();
-        System.out.println("Please enter a date to CheckOut: ");
+        System.out.println("Please enter a date to CheckOut: in the format mm/dd/yyyy ");
         String checkOutDate = scanner.nextLine();
 
         System.out.println(HotelResource.findARoom(new Date(checkInDate), new Date(checkOutDate)));
 
         System.out.println("Do you have an account with us?");
-        System.out.println("Yes Or No -> y or n");
+        System.out.println("Please enter y or n");
         char YesorNo = scanner.next().charAt(0);
         scanner.nextLine();
         if(YesorNo=='n') {
@@ -140,9 +157,9 @@ public class MainMenu {
             }
             System.out.println("Please enter the room number: ");
             String roomNumber = scanner.nextLine();
-            System.out.println("Please enter a date to CheckIn: ");
+            System.out.println("Please enter a date to CheckIn: in the format mm/dd/yyyy ");
             String checkInDate1 = scanner.nextLine();
-            System.out.println("Please enter a date to CheckOut: ");
+            System.out.println("Please enter a date to CheckOut: in the format mm/dd/yyyy ");
             String checkOutDate1 = scanner.nextLine();
             HotelResource.bookARoom
                     (customerEmail1, HotelResource.getRoom(roomNumber),new Date(checkInDate1), new Date(checkOutDate1));
@@ -168,22 +185,6 @@ public class MainMenu {
         }
     }
 
-    public static void exit(Scanner scanner){
-        try {
-            System.out.println("Do you want to exit?");
-            System.out.println("y or n");
-            String YesOrNo = scanner.next();
-            scanner.nextLine();
-            if(YesOrNo.equals("y")){
-                scanner.close();
-            }else if(YesOrNo.equals("n")){
-
-            }
-        }catch (InputMismatchException e){
-            e.getLocalizedMessage();
-        }
-
-}
 }
 
 
