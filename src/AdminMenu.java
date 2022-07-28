@@ -37,21 +37,17 @@ public class AdminMenu {
                         case "1":
                             System.out.println("All Customers: ");
                             System.out.println(AdminResource.getAllCustomers());
-                            //running = false;
                             break;
                         case "2":
                             System.out.println("All Rooms: ");
                             System.out.println(AdminResource.getAllRooms());
-                           // running = false;
                             break;
                         case "3":
                             System.out.println("All Reservations: ");
                             AdminResource.displayAllReservations();
-                           // running = false;
                             break;
                         case "4":
                             AddRooms(scanner);
-                           // running = false;
                             break;
                         case "5":
                             System.out.println(" Back to Main Menu: ");
@@ -105,7 +101,6 @@ public class AdminMenu {
 
 
         } catch (InputMismatchException exception) {
-            exception.getLocalizedMessage();
             System.out.println("Invalid Input!");
             scanner.nextLine();
         }

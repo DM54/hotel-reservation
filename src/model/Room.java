@@ -32,6 +32,18 @@ public class Room implements IRoom{
         return enumeration;
     }
 
+    public void setRoomNumber(String roomNumber) {
+        RoomNumber = roomNumber;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setEnumeration(RoomTypeEnumeration enumeration) {
+        this.enumeration = enumeration;
+    }
+
     @Override
     public boolean isFree() {
         return false;
@@ -40,5 +52,15 @@ public class Room implements IRoom{
     @Override
     public String toString() {
         return "" + RoomNumber + " Price: $" + price +" price per night " +" Room Type: " + enumeration;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

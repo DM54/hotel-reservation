@@ -38,17 +38,14 @@ public class MainMenu {
                     switch (userInput) {
                             case "1":
                                 findReserveARoom(scanner, pattern);
-                                //running = false;
                                 break;
 
                             case "2":
                                 SeeMyReservations(scanner, pattern);
-                                //running = false;
                                 break;
 
                             case "3":
                                 CreateCustomerAccount(scanner, pattern);
-                                //running = false;
                                 break;
 
                             case "4":
@@ -105,10 +102,8 @@ public class MainMenu {
                 BookARoom(scanner, pattern);
 
             }
-        }catch (InputMismatchException e){
-            e.getLocalizedMessage();
-           // System.out.println("Invalid Input!");
-            scanner.nextLine();
+        }catch (Exception e){
+           System.out.println("Invalid Input!");
         }
 
     }
@@ -122,7 +117,6 @@ public class MainMenu {
             if(!pattern.matcher(customerEmail).matches()){
                 System.out.println("Invalid email, Enter the format: name@domain.com: ");
                 customerEmail = scanner.nextLine();
-
             }
             System.out.println("Please enter your first name: ");
             String firstName = scanner.nextLine();
@@ -134,15 +128,6 @@ public class MainMenu {
         }catch (IllegalArgumentException e){
             e.getLocalizedMessage();
         }
-    }
-
-    public static void checkIfEmailExists(Scanner scanner){
-        System.out.println("Please enter your email: ");
-        String customerEmail = scanner.nextLine();
-        if(customerEmail.equals(HotelResource.getCustomer(customerEmail).getEmail())) {
-            System.out.println("The account already exist!");
-        }
-
     }
 
     public static void BookARoom(Scanner scanner, Pattern pattern){
@@ -180,27 +165,6 @@ public class MainMenu {
             System.out.println(HotelResource.getCustomerReservations(customerEmail11));
         }catch (IllegalArgumentException e){
             e.getLocalizedMessage();
-        }
-    }
-
-
-    public static void exit(Scanner scanner, boolean running){
-        try {
-            System.out.println("Do you want to exit?");
-            System.out.println("Please enter y or n");
-            String YesOrNo = scanner.next();
-            scanner.nextLine();
-            if (YesOrNo.matches("y")) {
-                scanner.close();
-            } else if (YesOrNo.matches( "n")) {
-
-            }else {
-                System.out.println("Please enter Yes for y Or No for n");
-            }
-
-        }catch (IllegalStateException e){
-            e.getLocalizedMessage();
-           // scanner.nextLine();
         }
     }
 

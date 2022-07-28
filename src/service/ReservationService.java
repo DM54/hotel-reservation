@@ -21,16 +21,13 @@ public class ReservationService {
     public static void addRoom(IRoom room){
        room = new Room(room.getRoomNumber(),room.getRoomPrice(), room.getRoomType());
        roomSet.add(room);
-
     }
 
     public static IRoom getARoom(String roomId){
-       // System.out.println(" From getARoom method: ");
         for (IRoom room1: roomSet
         ) {
             roomMap.put(room1.getRoomNumber(), room1);
         }
-        //System.out.println(roomMap);
           return roomMap.get(roomId);
     }
 
