@@ -3,6 +3,7 @@ import model.IRoom;
 import model.Room;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -36,25 +37,27 @@ public class AdminMenu {
                         case "1":
                             System.out.println("All Customers: ");
                             System.out.println(AdminResource.getAllCustomers());
-
+                            //running = false;
                             break;
                         case "2":
                             System.out.println("All Rooms: ");
                             System.out.println(AdminResource.getAllRooms());
-
+                           // running = false;
                             break;
                         case "3":
                             System.out.println("All Reservations: ");
                             AdminResource.displayAllReservations();
-
+                           // running = false;
                             break;
                         case "4":
                             AddRooms(scanner);
+                           // running = false;
                             break;
                         case "5":
                             System.out.println(" Back to Main Menu: ");
                             MainMenu mainMenu = new MainMenu();
                             mainMenu.main();
+                            running = false;
                             break;
                         default:
                             System.out.println(" Invalid input, Please choose 1 - 5 ");
@@ -67,37 +70,45 @@ public class AdminMenu {
                     exception.getLocalizedMessage();
                 }
             }
+
         }catch (Exception e){
             e.getLocalizedMessage();
         }
     }
 
 
-    public static void AddRooms(Scanner scanner){
-        System.out.println("Please enter a room number, price and single or double");
-        System.out.println("Please enter a room number");
-        String roomNumber = scanner.nextLine();
-        System.out.println("Please enter a price");
-        Double price = scanner.nextDouble();
-        scanner.nextLine();
-        System.out.println("Please enter single or double");
-        String rooms = scanner.nextLine();
-        List<IRoom> roomsList = new ArrayList<>();
-        IRoom room;
+    public static void AddRooms(Scanner scanner) {
+        try {
 
-        if (rooms.equals("single")) {
+            System.out.println("Please enter a room number, price and single or double");
+            System.out.println("Please enter a room number");
+            String roomNumber = scanner.nextLine();
+            System.out.println("Please enter a price");
+            Double price = scanner.nextDouble();
+            scanner.nextLine();
+            System.out.println("Please enter single or double");
+            String rooms = scanner.nextLine();
+            List<IRoom> roomsList = new ArrayList<>();
+            IRoom room;
 
-            room = new Room(roomNumber, price, SINGLE);
-            roomsList.add(room);
+            if (rooms.equals("single")) {
 
-        } else if ( rooms.equals("double")) {
-            room = new Room(roomNumber, price, DOUBLE);
-            roomsList.add(room);
+                room = new Room(roomNumber, price, SINGLE);
+                roomsList.add(room);
 
+            } else if (rooms.equals("double")) {
+                room = new Room(roomNumber, price, DOUBLE);
+                roomsList.add(room);
+
+            }
+            AdminResource.addRoom(roomsList);
+
+
+        } catch (InputMismatchException exception) {
+            exception.getLocalizedMessage();
+            System.out.println("Invalid Input!");
+            scanner.nextLine();
         }
-        AdminResource.addRoom(roomsList);
-
-
     }
 
 }
