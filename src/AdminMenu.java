@@ -1,11 +1,9 @@
 import api.AdminResource;
+import api.HotelResource;
 import model.IRoom;
 import model.Room;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static model.RoomTypeEnumeration.DOUBLE;
 import static model.RoomTypeEnumeration.SINGLE;
@@ -82,22 +80,22 @@ public class AdminMenu {
             System.out.println("Please enter a price");
             Double price = scanner.nextDouble();
             scanner.nextLine();
-            System.out.println("Please enter single or double");
+            System.out.println("Please enter 1 for single or 2 for double");
             String rooms = scanner.nextLine();
-            List<IRoom> roomsList = new ArrayList<>();
+            ArrayList<IRoom> roomArrayList = new ArrayList<>();
             IRoom room;
+                if (rooms.equals("1")) {
 
-            if (rooms.equals("single")) {
+                    room = new Room(roomNumber, price, SINGLE);
+                    roomArrayList.add(room);
 
-                room = new Room(roomNumber, price, SINGLE);
-                roomsList.add(room);
 
-            } else if (rooms.equals("double")) {
-                room = new Room(roomNumber, price, DOUBLE);
-                roomsList.add(room);
+                } else if (rooms.equals("2")) {
+                    room = new Room(roomNumber, price, DOUBLE);
+                    roomArrayList.add(room);
+                }
 
-            }
-            AdminResource.addRoom(roomsList);
+            AdminResource.addRoom(roomArrayList);
 
 
         } catch (InputMismatchException exception) {

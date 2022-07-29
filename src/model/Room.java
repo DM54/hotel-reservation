@@ -56,11 +56,13 @@ public class Room implements IRoom{
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if(obj.equals(null)){
+            return false;
+        }
+        return getRoomNumber().equals(this.getRoomNumber());
     }
-
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return (int) RoomNumber.hashCode();
     }
 }
