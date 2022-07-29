@@ -1,9 +1,8 @@
-import api.AdminResource;
+
 import api.HotelResource;
-import model.Customer;
+
 
 import java.util.Date;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -87,19 +86,24 @@ public class MainMenu {
             String checkInDate = scanner.nextLine();
             System.out.println("Please enter a date to CheckOut: in the format mm/dd/yyyy ");
             String checkOutDate = scanner.nextLine();
-
+            
             System.out.println(HotelResource.findARoom(new Date(checkInDate), new Date(checkOutDate)));
+            System.out.println("Do you want to book with us, enter y or n");
+            String yn = scanner.nextLine();
+            if(yn.equals("y")) {
+                System.out.println("Do you have an account with us?");
+                System.out.println("Please enter y or n");
+                char YesorNo = scanner.next().charAt(0);
+                scanner.nextLine();
+                if (YesorNo == 'n') {
+                    CreateCustomerAccount(scanner, pattern);
+                    BookARoom(scanner, pattern);
 
-            System.out.println("Do you have an account with us?");
-            System.out.println("Please enter y or n");
-            char YesorNo = scanner.next().charAt(0);
-            scanner.nextLine();
-            if (YesorNo == 'n') {
-                CreateCustomerAccount(scanner, pattern);
-                BookARoom(scanner, pattern);
+                } else if (YesorNo == 'y') {
+                    BookARoom(scanner, pattern);
 
-            } else if (YesorNo == 'y') {
-                BookARoom(scanner, pattern);
+                }
+            } else if (yn.equals("n")) {
 
             }
         }catch (Exception e){
@@ -118,12 +122,12 @@ public class MainMenu {
                 System.out.println("Invalid email, Enter the format: name@domain.com: ");
                 customerEmail = scanner.nextLine();
             }
-            System.out.println("Please enter your first name: ");
-            String firstName = scanner.nextLine();
-            System.out.println("Please enter your last name: ");
-            String lastName = scanner.nextLine();
-            HotelResource.createACustomer(firstName, lastName, customerEmail);
-            System.out.println("Thank you for signing up!");
+                System.out.println("Please enter your first name: ");
+                String firstName = scanner.nextLine();
+                System.out.println("Please enter your last name: ");
+                String lastName = scanner.nextLine();
+                HotelResource.createACustomer(firstName, lastName, customerEmail);
+                System.out.println("Thank you for signing up!");
 
         }catch (IllegalArgumentException e){
             e.getLocalizedMessage();

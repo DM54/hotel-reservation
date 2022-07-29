@@ -6,11 +6,9 @@ import model.Reservation;
 import service.CustomerService;
 import service.ReservationService;
 
-import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+
 
 public class HotelResource {
     public static Customer getCustomer(String email){

@@ -1,5 +1,4 @@
 import api.AdminResource;
-import api.HotelResource;
 import model.IRoom;
 import model.Room;
 
