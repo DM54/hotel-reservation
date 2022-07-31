@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
  * @author Dyana Monroy
  */
 public class Customer {
-    private String firstName;
-    private String lastName;
-    private String email;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
 
     String emailRegEx = "^(.+)@(.+).(.+)$";
     Pattern pattern = Pattern.compile(emailRegEx);
@@ -39,18 +39,6 @@ public class Customer {
         return lastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     @Override
     public String toString() {
         return " Name: " + firstName +" " + lastName + " Email: " + email;
@@ -58,11 +46,32 @@ public class Customer {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if(obj.equals(null)){
+            return false;
+        }
+        return getFirstName().equals(this.getFirstName());
     }
+
+    public boolean LastNameequals(Object obj) {
+        if(obj.equals(null)){
+            return false;
+        }
+        return getLastName().equals(this.getLastName());
+    }
+
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return (int) firstName.hashCode();
     }
+
+    public int LastNamehashCode() {
+        return (int) lastName.hashCode();
+    }
+
+    public int EmailhashCode() {
+        return (int) email.hashCode();
+    }
+
+
 }

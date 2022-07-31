@@ -19,14 +19,13 @@ public class Tester {
         System.out.println(CustomerService.getCustomer("D@email.com"));
         System.out.println(CustomerService.getCustomer("AC@email.com"));
         System.out.println(CustomerService.getAllCustomers());*/
-
-
-        ReservationService.addRoom(new Room("104", 90.00, RoomTypeEnumeration.SINGLE));
+          // ReservationService.getInstance();
+        /*ReservationService.addRoom(new Room("104", 90.00, RoomTypeEnumeration.SINGLE));
         ReservationService.addRoom(new Room("110", 90.00, RoomTypeEnumeration.SINGLE));
         ReservationService.addRoom(new Room("101", 100.00, RoomTypeEnumeration.DOUBLE));
         ReservationService.addRoom(new Room("102", 100.00, RoomTypeEnumeration.DOUBLE));
         ReservationService.addRoom(new Room("100", 90.00, RoomTypeEnumeration.SINGLE));
-        ReservationService.addRoom(new Room("120", 0.00, RoomTypeEnumeration.SINGLE));
+        ReservationService.addRoom(new Room("120", 0.00, RoomTypeEnumeration.SINGLE));*/
 
 
        /* ReservationService.reserveARoom(

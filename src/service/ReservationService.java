@@ -10,15 +10,27 @@ import java.util.*;
 
 public class ReservationService {
 
-      static Map<String, IRoom> roomMap = new HashMap<String, IRoom>();
-      static Set<IRoom> roomSet = new HashSet<IRoom>();
-      static Map<IRoom,Date> reservationMap = new HashMap<>();
-      static Map<IRoom,Date> reservationMap2 = new HashMap<>();
-      static  Set<Reservation> reservationSet = new HashSet<>();
-      static Set<IRoom> roomArraySet = new HashSet<>();
+      private static Map<String, IRoom> roomMap = new HashMap<String, IRoom>();
+      private static Set<IRoom> roomSet = new HashSet<IRoom>();
+      private static Map<IRoom,Date> reservationMap = new HashMap<>();
+      private static Map<IRoom,Date> reservationMap2 = new HashMap<>();
+      private static  Set<Reservation> reservationSet = new HashSet<>();
+      private static Set<IRoom> roomArraySet = new HashSet<>();
 
+      private static ReservationService Instance;
 
-    public static void addRoom(IRoom room){
+      private ReservationService(){
+
+      }
+
+      public static ReservationService getInstance(){
+          if(Instance==null){
+              Instance = new ReservationService();
+          }
+          return Instance;
+      }
+
+    private static void addRoom(IRoom room){
        room = new Room(room.getRoomNumber(),room.getRoomPrice(), room.getRoomType());
        roomSet.add(room);
     }
@@ -150,7 +162,7 @@ public class ReservationService {
          return reservationArrayList;
     }
 
-    public static void PrintAllReservation(){
+     static void PrintAllReservation(){
         for (Reservation allreservations: reservationSet
              ) {
             System.out.println(allreservations);

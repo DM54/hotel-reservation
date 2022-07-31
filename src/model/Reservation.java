@@ -60,11 +60,24 @@ public class Reservation {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if(obj.equals(null)){
+            return false;
+        }
+        return getCheckInDate().equals(this.getCheckInDate());
+    }
+    public boolean getCheckOutequals(Object obj) {
+        if(obj.equals(null)){
+            return false;
+        }
+        return getCheckOutDate().equals(this.getCheckOutDate());
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return (int) checkInDate.hashCode();
+    }
+
+    public int CheckOuthashCode() {
+        return (int) checkOutDate.hashCode();
     }
 }
