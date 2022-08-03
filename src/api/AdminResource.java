@@ -7,8 +7,8 @@ import service.ReservationService;
 import java.util.*;
 
 public class AdminResource {
-    static Set<IRoom> allrooms = new HashSet<>();
-    static Set<IRoom> addrooms = new HashSet<>();
+    private static Set<IRoom> allrooms = new HashSet<>();
+    private static Set<IRoom> addrooms = new HashSet<>();
 
     public static Customer getCustomer(String Email){
      return CustomerService.getCustomer(Email);

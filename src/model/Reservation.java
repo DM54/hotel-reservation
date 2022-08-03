@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * This is Reservation Class
@@ -13,6 +14,11 @@ public class Reservation {
     private Date checkInDate;
     private Date checkOutDate;
 
+
+    public Reservation(){
+
+    }
+
     public Reservation(Customer customer, IRoom room, Date checkInDate, Date checkOutDate){
         this.customer = customer;
         this.room = room;
@@ -22,6 +28,7 @@ public class Reservation {
     }
 
     public Customer getCustomer() {
+
         return customer;
     }
 
@@ -62,22 +69,19 @@ public class Reservation {
     public boolean equals(Object obj) {
         if(obj.equals(null)){
             return false;
+        }else if(obj.equals(this)){
+            return true;
         }
-        return getCheckInDate().equals(this.getCheckInDate());
-    }
-    public boolean getCheckOutequals(Object obj) {
-        if(obj.equals(null)){
-            return false;
-        }
-        return getCheckOutDate().equals(this.getCheckOutDate());
+        Customer customer1 = (Customer) obj;
+        Room room1 = (Room) obj;
+        return customer.equals(customer1.getEmail()) && customer.equals(customer1.getFirstName())
+                && customer.equals(customer1.getLastName()) && room.equals(room1.getRoomNumber())
+                && room.equals(room1.getRoomPrice()) && room.equals(room1.getRoomType())
+                && checkInDate.equals(this.getCheckInDate()) && checkOutDate.equals(this.getCheckOutDate());
     }
 
     @Override
     public int hashCode() {
-        return (int) checkInDate.hashCode();
-    }
-
-    public int CheckOuthashCode() {
-        return (int) checkOutDate.hashCode();
+        return Objects.hash(customer,room,checkInDate,checkOutDate);
     }
 }

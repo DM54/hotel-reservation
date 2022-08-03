@@ -44,34 +44,20 @@ public class Customer {
         return " Name: " + firstName +" " + lastName + " Email: " + email;
     }
 
-    @Override
+  @Override
     public boolean equals(Object obj) {
-        if(obj.equals(null)){
+        if(obj==null){
             return false;
         }
-        return getFirstName().equals(this.getFirstName());
-    }
-
-    public boolean LastNameequals(Object obj) {
-        if(obj.equals(null)){
-            return false;
+        else if(obj.equals(this)){
+            return true;
         }
-        return getLastName().equals(this.getLastName());
+        return getEmail().equals(this.getEmail());
     }
-
 
     @Override
     public int hashCode() {
-        return (int) firstName.hashCode();
-    }
-
-    public int LastNamehashCode() {
-        return (int) lastName.hashCode();
-    }
-
-    public int EmailhashCode() {
         return (int) email.hashCode();
     }
-
 
 }

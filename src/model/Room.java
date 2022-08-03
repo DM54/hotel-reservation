@@ -10,6 +10,9 @@ public class Room implements IRoom{
     private Double price;
     private RoomTypeEnumeration enumeration;
 
+
+    public Room(){}
+
     public Room(String RoomNumber, Double price, RoomTypeEnumeration enumeration){
         this.RoomNumber = RoomNumber;
         this.price = price;
@@ -54,10 +57,12 @@ public class Room implements IRoom{
         return "" + RoomNumber + " Price: $" + price +" price per night " +" Room Type: " + enumeration;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(obj.equals(null)){
+   @Override
+   public boolean equals(Object obj) {
+        if(obj==null){
             return false;
+        }else if(obj.equals(this)){
+            return true;
         }
         return getRoomNumber().equals(this.getRoomNumber());
     }
