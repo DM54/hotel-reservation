@@ -2,7 +2,6 @@
 import api.HotelResource;
 import model.IRoom;
 import model.Reservation;
-import service.ReservationService;
 
 
 import java.util.*;
@@ -81,8 +80,8 @@ public class MainMenu {
 
     }
 
-    private static Set<IRoom> reservationSet = new HashSet<>();
-    private static  Set<IRoom> getiRooms = new HashSet<>();
+    private static Set<IRoom> iRooms = new HashSet<>();
+    private static Set<IRoom> getiRooms = new HashSet<IRoom>();
    public static void bookRooms(Scanner scanner, Pattern pattern, String customerEmail1,
                                 String roomNumber, String checkInDate, String checkOutDate){
         try {
@@ -94,72 +93,44 @@ public class MainMenu {
         }
    }
 
+    static Collection<IRoom> rooms = new ArrayList<>();
+
     public static void findReserveARoom(Scanner scanner, Pattern pattern){
         try {
+            CreateCustomerAccount(scanner, pattern);
+            System.out.println("Please enter your email: ");
+            String customerEmail1 = scanner.nextLine();
+            if (!pattern.matcher(customerEmail1).matches()) {
+                System.out.println("Invalid email, Enter the format: name@domain.com: ");
+                customerEmail1 = scanner.nextLine();
+            }
+            System.out.println("Please enter a date to CheckIn and CheckOut");
+            System.out.println("Please enter a date to CheckIn: in the format mm/dd/yyyy ");
+            String checkInDate = scanner.nextLine();
+            System.out.println("Please enter a date to CheckOut: in the format mm/dd/yyyy ");
+            String checkOutDate = scanner.nextLine();
 
-                System.out.println("Do you have an account with us?");
-                System.out.println("Please enter y or n");
-                char YesorNo = scanner.next().charAt(0);
-                scanner.nextLine();
-                if (YesorNo == 'n') {
-                    CreateCustomerAccount(scanner, pattern);
-                    System.out.println("Please enter your email: ");
-                    String customerEmail1 = scanner.nextLine();
-                    if (!pattern.matcher(customerEmail1).matches()) {
-                        System.out.println("Invalid email, Enter the format: name@domain.com: ");
-                        customerEmail1 = scanner.nextLine();
-                    }
-                    System.out.println("Please enter a date to CheckIn and CheckOut");
-                    System.out.println("Please enter a date to CheckIn: in the format mm/dd/yyyy ");
-                    String checkInDate = scanner.nextLine();
-                    System.out.println("Please enter a date to CheckOut: in the format mm/dd/yyyy ");
-                    String checkOutDate = scanner.nextLine();
+            System.out.println("You may book a room:");
+            rooms = HotelResource.findARoom(new Date(checkInDate), new Date(checkOutDate));
+            for (IRoom r: rooms
+                 ) {
+                getiRooms.add(r);
 
-                    System.out.println("You may book a room:");
-                    System.out.println(HotelResource.findARoom(new Date(checkInDate),new Date(checkOutDate)));
-                    System.out.println("Please enter a Room Number");
-                    String roomNumber = scanner.nextLine();
-                     HotelResource.bookARoom
-                            (customerEmail1, HotelResource.getRoom(roomNumber), new Date(checkInDate), new Date(checkOutDate));
-                    //bookRooms(scanner,pattern,customerEmail1,roomNumber,checkInDate,checkOutDate);
+            }
+            System.out.println(getiRooms);
+            Reservation reservation = new Reservation();
+            System.out.println("Please enter a Room Number");
+            String roomNumber = scanner.nextLine();
+           reservation= HotelResource.bookARoom
+                    (customerEmail1, HotelResource.getRoom(roomNumber), new Date(checkInDate), new Date(checkOutDate));
 
-                } else if (YesorNo == 'y') {
-                    System.out.println("Please enter your email: ");
 
-                    String customerEmail1 = scanner.nextLine();
-                    if (!pattern.matcher(customerEmail1).matches()) {
-                        System.out.println("Invalid email, Enter the format: name@domain.com: ");
-                        customerEmail1 = scanner.nextLine();
-                    }
+            //roomNumber = scanner.nextLine();
 
-                    System.out.println("Please enter a date to CheckIn and CheckOut");
-                    System.out.println("Please enter a date to CheckIn: in the format mm/dd/yyyy ");
-                    String checkInDate = scanner.nextLine();
-                    System.out.println("Please enter a date to CheckOut: in the format mm/dd/yyyy ");
-                    String checkOutDate = scanner.nextLine();
+            //bookRooms(scanner,pattern,customerEmail1,roomNumber,checkInDate,checkOutDate);
+        }
 
-                    System.out.println("You may book a room:");
-                    System.out.println(getiRooms);
-
-                    //System.out.println(HotelResource.findARoom(new Date(checkInDate), new Date(checkOutDate)));
-                    System.out.println("Please enter a Room Number");
-                    String roomNumber = scanner.nextLine();
-                    Reservation reservation;
-                    reservation= HotelResource.bookARoom
-                            (customerEmail1, HotelResource.getRoom(roomNumber), new Date(checkInDate), new Date(checkOutDate));
-                    for (IRoom r: HotelResource.findARoom(new Date(checkInDate),new Date(checkOutDate))
-                    ) {
-                        if(reservation.getRoom().equals(r.toString())) {
-                            getiRooms.add(r);
-                        }
-                    }
-                   // bookRooms(scanner,pattern,customerEmail1,roomNumber,checkInDate,checkOutDate);
-                    System.out.println("Thank you for booking with us!");
-                    System.out.println(HotelResource.getCustomerReservations(customerEmail1));
-
-                }
-
-        }catch (Exception e){
+        catch (Exception e){
            System.out.println("Invalid Input!");
         }
 
