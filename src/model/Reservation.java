@@ -72,12 +72,8 @@ public class Reservation {
         }else if(obj.equals(this)){
             return true;
         }
-        Customer customer1 = (Customer) obj;
-        Room room1 = (Room) obj;
-        return customer.equals(customer1.getEmail()) && customer.equals(customer1.getFirstName())
-                && customer.equals(customer1.getLastName()) && room.equals(room1.getRoomNumber())
-                && room.equals(room1.getRoomPrice()) && room.equals(room1.getRoomType())
-                && checkInDate.equals(this.getCheckInDate()) && checkOutDate.equals(this.getCheckOutDate());
+        return getCustomer().equals(this.getCustomer()) && getRoom().equals(this.getRoom())
+                && getCheckInDate().equals(this.getCheckInDate()) && getCheckOutDate().equals(this.getCheckOutDate());
     }
 
     @Override

@@ -2,6 +2,7 @@
 import api.HotelResource;
 import model.IRoom;
 import model.Reservation;
+import service.ReservationService;
 
 
 import java.util.*;

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /**
  * This is Room Class implementing IRoom Interface and its methods
  * @author Dyana Monroy
@@ -59,15 +61,16 @@ public class Room implements IRoom{
 
    @Override
    public boolean equals(Object obj) {
-        if(obj==null){
+        if(obj.equals(null)){
             return false;
         }else if(obj.equals(this)){
             return true;
         }
-        return getRoomNumber().equals(this.getRoomNumber());
+        return getRoomNumber().equals(this.getRoomNumber()) && getRoomPrice().equals(this.getRoomPrice())
+                && getRoomType().equals(this.getRoomType());
     }
     @Override
     public int hashCode() {
-        return (int) RoomNumber.hashCode();
+        return Objects.hash(RoomNumber,price,enumeration);
     }
 }

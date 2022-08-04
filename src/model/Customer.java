@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,18 +47,19 @@ public class Customer {
 
   @Override
     public boolean equals(Object obj) {
-        if(obj==null){
+        if(obj.equals(null)){
             return false;
         }
         else if(obj.equals(this)){
             return true;
         }
-        return getEmail().equals(this.getEmail());
+        return getFirstName().equals(this.getFirstName()) && getLastName().equals(this.getLastName())
+                && getEmail().equals(this.getEmail());
     }
 
     @Override
     public int hashCode() {
-        return (int) email.hashCode();
+        return Objects.hash(firstName,lastName,email);
     }
 
 }

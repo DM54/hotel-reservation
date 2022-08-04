@@ -1,8 +1,6 @@
 package service;
 
 import model.*;
-
-import javax.imageio.event.IIOReadProgressListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,13 +22,13 @@ public class ReservationService {
 
       }
 
-      public static ReservationService getInstance(){
-          if(Instance==null){
+      public static synchronized ReservationService getInstance(){
+          if(Instance.equals(null)) {
               Instance = new ReservationService();
+
           }
           return Instance;
       }
-
     public static void addRoom(IRoom room){
        room = new Room(room.getRoomNumber(),room.getRoomPrice(), room.getRoomType());
        roomSet.add(room);
@@ -45,7 +43,7 @@ public class ReservationService {
     }
 
       static Reservation r;
-      static Reservation reservation;
+
     public static Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate){
         Calendar calendar = Calendar.getInstance();
         DateFormat datein = new SimpleDateFormat("MM/dd/yyyy");
@@ -78,7 +76,7 @@ public class ReservationService {
             throw new RuntimeException(e);
         }
 
-        return r;
+       return r;
     }
 
     public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate ){

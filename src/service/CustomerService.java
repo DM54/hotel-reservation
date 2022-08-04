@@ -16,9 +16,10 @@ public class CustomerService {
 
    }
 
-   public static CustomerService getInstance(){
-       if(Instance==null){
+   public static synchronized CustomerService getInstance(){
+       if(Instance.equals(null)) {
            Instance = new CustomerService();
+
        }
        return Instance;
    }
