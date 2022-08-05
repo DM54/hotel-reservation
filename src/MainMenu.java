@@ -153,7 +153,7 @@ public class MainMenu {
                 System.out.println("The list of Rooms:");
                 System.out.println(AdminResource.getAllRooms());
                 System.out.println("Available Rooms:");
-                System.out.println(iRooms);
+                System.out.println(getiRooms);
                 System.out.println("Do you want to book with us?");
                 System.out.println("Yes Or No -> y or n");
                 char YON = scanner.next().charAt(0);
@@ -166,7 +166,7 @@ public class MainMenu {
                     for (IRoom room : AdminResource.getAllRooms()
                     ) {
                         if (!room.getRoomNumber().equals(roomNumber)) {
-                            iRooms.add(room);
+                            getiRooms.add(room);
                         }
                     }
                 } else if (YON=='n') {

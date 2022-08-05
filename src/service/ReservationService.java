@@ -158,8 +158,6 @@ public class ReservationService {
                for (IRoom room : reservationMap.keySet()) {
                    if (!reservationMap.get(room).equals(checkInDate) && !reservationMap2.get(room).equals(checkOutDate)) {
                        roomArraySet.add(room);
-                   } else {
-                       roomArraySet.add(room);
                    }
                }
        }
