@@ -43,6 +43,7 @@ public class ReservationService {
     }
 
       static Reservation r;
+
      static boolean isreserved = false;
     public static Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate){
         Calendar calendar = Calendar.getInstance();
@@ -65,10 +66,7 @@ public class ReservationService {
                // reservation =reserveARoom(r.getCustomer(), r.getRoom(), checkInDate, checkOutDate);
                   System.out.println("Thank you for booking with us!");
                   System.out.println(getCustomerReservation(customer));
-                  isreserved=true;
-                  findRooms(checkInDate,checkOutDate);
-
-
+                  isreserved = true;
             }
             else {
                 System.out.println("Sorry the room is booked, try again.");
@@ -83,28 +81,12 @@ public class ReservationService {
     }
 
     public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate ){
-        Calendar calendar = Calendar.getInstance();
-        Calendar calendar1 = Calendar.getInstance();
-        DateFormat datein = new SimpleDateFormat("MM/dd/yyyy");
-        DateFormat dateout = new SimpleDateFormat("MM/dd/yyyy");
-        String dateIn1 = datein.format(checkInDate);
-        String dateOut2 = dateout.format(checkOutDate);
-        calendar.setTime(checkInDate);
-        calendar1.setTime(checkOutDate);
-
-        calendar.add(Calendar.DAY_OF_MONTH, 7);
-        calendar1.add(Calendar.DAY_OF_MONTH, 7);
-        Date in = calendar.getTime();
-        Date out = calendar1.getTime();
-        String dateIn = datein.format(in);
-        String dateOut = dateout.format(out);
-
-
-            // AvailableRooms(checkInDate,checkOutDate);
-             checkreserved(checkInDate,checkOutDate);
-             recommendRooms(checkInDate, checkOutDate);
-
-
+                 if(isreserved==false) {
+                     AvailableRooms(checkInDate, checkOutDate);
+                 }else {
+                     checkreserved(checkInDate, checkOutDate);
+                     recommendRooms(checkInDate, checkOutDate);
+                 }
 
         return roomArraySet;
     }
@@ -124,25 +106,26 @@ public class ReservationService {
                 }
         }
 
-    System.out.println("checked reserved" + isReserved());
+
     }
 
     static void AvailableRooms(Date checkInDate, Date checkOutDate) {
 
         if(reservationSet.size()==0){
-            for (IRoom r:roomSet
+            for (IRoom room: roomSet
                  ) {
-                roomArraySet.add(getARoom(r.getRoomNumber()));
+
+                if(!reservationSet.toString().contains(room.toString())){
+                    roomArraySet.add(getARoom(room.getRoomNumber()));
+                }
             }
         }
 
-        System.out.println("available rooms" + isReserved());
+
 
     }
 
-    static boolean isReserved(){
-        return isreserved;
-    }
+
 
    private static void recommendRooms(Date checkInDate, Date checkOutDate){
        Calendar calendar = Calendar.getInstance();

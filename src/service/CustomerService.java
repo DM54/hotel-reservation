@@ -40,7 +40,7 @@ public class CustomerService {
     public static Collection<Customer> getAllCustomers(){
         for (Customer c: customerSet
              ) {
-            getCustomerSet.add(getCustomer(c.getEmail()));
+                getCustomerSet.add(getCustomer(c.getEmail()));
         }
        return getCustomerSet;
     }
