@@ -19,6 +19,8 @@ public class Customer {
     Pattern pattern = Pattern.compile(emailRegEx);
 
 
+
+
     public Customer(String firstName, String lastName, String email){
         if(!pattern.matcher(email).matches()){
         throw new IllegalArgumentException("It is invalid email.");

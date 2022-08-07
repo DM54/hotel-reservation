@@ -57,7 +57,7 @@ public class MainMenu {
                                 break;
                             case "5":  System.out.println("Please enter q to exit");
                                  String input = scanner.nextLine();
-                                 if(input.equals("q")) {
+                                 if(input.equalsIgnoreCase("q")) {
                                      System.out.println("Thank you, Goodbye!");
                                      scanner.close();
                                 }
@@ -85,10 +85,19 @@ public class MainMenu {
     private static Set<IRoom> getiRooms = new HashSet<IRoom>();
 
      static boolean isreserved = false;
-    static boolean bookedARoom(){
-        return isreserved;
-    }
 
+    static void Booked(Scanner scanner, String customerEmail1, String checkInDate, String checkOutDate){
+        System.out.println("Please enter a Room Number");
+        String roomNumber = scanner.nextLine();
+        HotelResource.bookARoom
+                (customerEmail1, HotelResource.getRoom(roomNumber), new Date(checkInDate), new Date(checkOutDate));
+        for (IRoom room : AdminResource.getAllRooms()
+        ) {
+            if (!room.getRoomNumber().equals(roomNumber)) {
+                getiRooms.add(room);
+            }
+        }
+    }
     public static void findReserveARoom(Scanner scanner, Pattern pattern){
         try {
 
@@ -98,7 +107,7 @@ public class MainMenu {
             scanner.nextLine();
             if(YesorNo=='n') {
                 CreateCustomerAccount(scanner, pattern);
-                System.out.println("Please enter your email: ");
+                System.out.println("Please enter your email: eg. name@domain.com ");
                 String customerEmail1 = scanner.nextLine();
                 if (!pattern.matcher(customerEmail1).matches()) {
                     System.out.println("Invalid email, Enter the format: name@domain.com: ");
@@ -121,22 +130,13 @@ public class MainMenu {
                char YON = scanner.next().charAt(0);
                scanner.nextLine();
                if(YON=='y') {
-                    System.out.println("Please enter a Room Number");
-                    String roomNumber = scanner.nextLine();
-                    HotelResource.bookARoom
-                            (customerEmail1, HotelResource.getRoom(roomNumber), new Date(checkInDate), new Date(checkOutDate));
-                    for (IRoom room : AdminResource.getAllRooms()
-                    ) {
-                        if (!room.getRoomNumber().equals(roomNumber)) {
-                            getiRooms.add(room);
-                        }
-                    }
+                   Booked(scanner,customerEmail1,checkInDate,checkOutDate);
                } else if (YON=='n') {
                     
                 }
            }
             else if (YesorNo=='y') {
-                System.out.println("Please enter your email: ");
+                System.out.println("Please enter your email: eg. name@domain.com ");
                 String customerEmail1 = scanner.nextLine();
                 if (!pattern.matcher(customerEmail1).matches()) {
                     System.out.println("Invalid email, Enter the format: name@domain.com: ");
@@ -159,16 +159,7 @@ public class MainMenu {
                 char YON = scanner.next().charAt(0);
                 scanner.nextLine();
                 if(YON=='y') {
-                    System.out.println("Please enter a Room Number");
-                    String roomNumber = scanner.nextLine();
-                    HotelResource.bookARoom
-                            (customerEmail1, HotelResource.getRoom(roomNumber), new Date(checkInDate), new Date(checkOutDate));
-                    for (IRoom room : AdminResource.getAllRooms()
-                    ) {
-                        if (!room.getRoomNumber().equals(roomNumber)) {
-                            getiRooms.add(room);
-                        }
-                    }
+                    Booked(scanner,customerEmail1,checkInDate,checkOutDate);
                 } else if (YON=='n') {
                     
                 }
@@ -186,7 +177,7 @@ public class MainMenu {
         try {
 
             System.out.println("Please create an account: ");
-            System.out.println("Please enter your email: ");
+            System.out.println("Please enter your email: eg. name@domain.com ");
             String customerEmail = scanner.nextLine();
             if(!pattern.matcher(customerEmail).matches()){
                 System.out.println("Invalid email, Enter the format: name@domain.com: ");
@@ -208,7 +199,7 @@ public class MainMenu {
 
     public static void SeeMyReservations(Scanner scanner, Pattern pattern){
         try {
-            System.out.println("Enter your email: ");
+            System.out.println("Enter your email: eg. name@domain.com ");
             String customerEmail11 = scanner.nextLine();
             if (!pattern.matcher(customerEmail11).matches()) {
                 System.out.println("Invalid email, Enter the format: name@domain.com: ");
